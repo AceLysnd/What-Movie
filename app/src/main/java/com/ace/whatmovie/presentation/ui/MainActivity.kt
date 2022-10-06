@@ -29,4 +29,9 @@ class MainActivity : AppCompatActivity() {
         _binding = null
     }
 
+    companion object {
+        const val BACKDROP_URL= "https://image.tmdb.org/t/p/w1280/"
+        const val POSTER_URL= "https://image.tmdb.org/t/p/w342/"
+    }
+
 }

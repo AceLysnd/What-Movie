@@ -16,6 +16,9 @@
         android:theme="@style/Theme.WhatMovie"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.detail.MovieDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.home.HomeActivity"
             android:exported="true" />
         <activity

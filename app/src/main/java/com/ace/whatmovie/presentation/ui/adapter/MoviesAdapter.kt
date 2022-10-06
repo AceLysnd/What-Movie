@@ -10,10 +10,12 @@ import coil.load
 import com.ace.whatmovie.R
 import com.ace.whatmovie.databinding.ItemMovieBinding
 import com.ace.whatmovie.model.Movie
+import com.ace.whatmovie.presentation.ui.MainActivity.Companion.POSTER_URL
 
 
 class MoviesAdapter(
-    private var movies: List<Movie>
+    private var movies: MutableList<Movie>,
+    private val onMovieClick: (movie: Movie) -> Unit
 ) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -37,19 +39,21 @@ class MoviesAdapter(
 //            notifyDataSetChanged()
 //        }
 
-    fun updateMovies(movies: List<Movie>) {
+    fun updateMovies(movies: MutableList<Movie>) {
         this.movies = movies
         notifyDataSetChanged()
     }
 
-    class MovieViewHolder(private val binding: ItemMovieBinding) :
+    inner class MovieViewHolder(private val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val poster : ImageView = binding.itemMoviePoster
 
         fun bind(movie: Movie) {
-            poster.load("https://image.tmdb.org/t/p/w342${movie.posterPath}") {
+            poster.load("$POSTER_URL${movie.posterPath}") {
                 crossfade(true)
             }
+
+            itemView.setOnClickListener { onMovieClick.invoke(movie) }
         }
     }
 }

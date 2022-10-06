@@ -1,5 +1,6 @@
 package com.ace.whatmovie.presentation.ui.home
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -16,6 +17,7 @@ import com.ace.whatmovie.R
 import com.ace.whatmovie.databinding.FragmentHomeBinding
 import com.ace.whatmovie.model.Movie
 import com.ace.whatmovie.presentation.ui.adapter.MoviesAdapter
+import com.ace.whatmovie.presentation.ui.detail.*
 import com.ace.whatmovie.repositories.MoviesRepository
 
 class HomeActivity : AppCompatActivity() {
@@ -33,16 +35,18 @@ class HomeActivity : AppCompatActivity() {
             LinearLayoutManager.HORIZONTAL,
             false
         )
-        popularMoviesAdapter = MoviesAdapter(listOf())
+        popularMoviesAdapter = MoviesAdapter(mutableListOf()) { movie -> showMovieDetails(movie) }
         popularMovies.adapter = popularMoviesAdapter
 
         MoviesRepository.getPopularMovies(
             onSuccess = ::onPopularMoviesFetched,
             onError = ::onError
         )
+
+
     }
 
-    private fun onPopularMoviesFetched(movies: List<Movie>) {
+    private fun onPopularMoviesFetched(movies: MutableList<Movie>) {
         popularMoviesAdapter.updateMovies(movies)
     }
 
@@ -56,10 +60,21 @@ class HomeActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    private fun showMovieDetails(movie: Movie) {
+        val intent = Intent(this, MovieDetailActivity::class.java)
+        intent.putExtra(MOVIE_BACKDROP, movie.backdropPath)
+        intent.putExtra(MOVIE_POSTER, movie.posterPath)
+        intent.putExtra(MOVIE_TITLE, movie.title)
+//        intent.putExtra(MOVIE_RATING, movie.rating)
+        intent.putExtra(MOVIE_RELEASE_DATE, movie.releaseDate)
+        intent.putExtra(MOVIE_OVERVIEW, movie.overview)
+        startActivity(intent)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.profile -> {
-                setContentView(R.layout.fragment_profile)
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
