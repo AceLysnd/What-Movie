@@ -1,4 +1,4 @@
-package com.ace.whatmovie.presentation.ui.adapter
+package com.ace.whatmovie.presentation.adapter
 
 import android.media.Image
 import android.view.LayoutInflater
@@ -29,24 +29,21 @@ class MoviesAdapter(
         holder.bind(movies[position])
     }
 
-//        fun setMovies(movies: List<Movie>) {
-//            this.movies.clear()
-//            this.movies.addAll(movies)
-//            notifyDataSetChanged()
-//        }
-//        fun clearItems(){
-//            this.movies.clear()
-//            notifyDataSetChanged()
-//        }
-
-    fun updateMovies(movies: MutableList<Movie>) {
+    fun setMovies(movies: MutableList<Movie>) {
+        this.movies.clear()
         this.movies = movies
+        notifyDataSetChanged()
+    }
+
+    fun addMovies(movies: MutableList<Movie>) {
+        this.movies.clear()
+        this.movies.addAll(movies)
         notifyDataSetChanged()
     }
 
     inner class MovieViewHolder(private val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val poster : ImageView = binding.itemMoviePoster
+        private val poster: ImageView = binding.itemMoviePoster
 
         fun bind(movie: Movie) {
             poster.load("$POSTER_URL${movie.posterPath}") {

@@ -20,4 +20,10 @@ interface MovieApiService {
         @Query("api_key") apiKey:String = BuildConfig.API_KEY,
         @Query("page") page: Int
     ): Call<GetMoviesResponse>
+
+    @GET("movie/now_playing")
+    fun getNowPlayingMovie(
+        @Query("api_key") apiKey:String = BuildConfig.API_KEY,
+        @Query("page") page: Int
+    ): Call<GetMoviesResponse>
 }

@@ -3,4 +3,24 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="movie_title">Movie Title</string>
+    <string name="movie_release_date">release date</string>
+    <string name="movie_overview">movie overview</string>
+    <string name="popular_movies_txt">Popular Movies</string>
+    <string name="popular_movie_desc">Current Popular Movies</string>
+    <string name="now_playing_movie_txt">Now Playing Movies</string>
+    <string name="currently_playing">Currently playing</string>
+    <string name="tv_rating">Rating :</string>
+    <string name="rating">Rating</string>
+    <string name="tv_login">Login</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="btn_login">Login</string>
+    <string name="no_account">Don\'t Have an Account?</string>
+    <string name="register">Register</string>
+    <string name="tv_create_new_account">Create New Account</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="btn_create_account">Create Account</string>
+    <string name="have_ccount">Already Have an Account?</string>
+    <string name="login">Login</string>
 </resources>

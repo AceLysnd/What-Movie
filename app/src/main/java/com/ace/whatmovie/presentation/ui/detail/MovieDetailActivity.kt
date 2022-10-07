@@ -21,7 +21,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private lateinit var backdrop: ImageView
     private lateinit var poster: ImageView
     private lateinit var title: TextView
-    private lateinit var rating: RatingBar
+    private lateinit var rating: TextView
     private lateinit var releaseDate: TextView
     private lateinit var overview: TextView
 
@@ -41,14 +41,14 @@ class MovieDetailActivity : AppCompatActivity() {
         val extras = intent.extras
 
         if (extras != null) {
-            populateDetails(extras)
+            getDetails(extras)
         } else {
             finish()
         }
 
     }
 
-    private fun populateDetails(extras: Bundle) {
+    private fun getDetails(extras: Bundle) {
 
         extras.getString(MOVIE_BACKDROP)?.let { backdropPath ->
                 backdrop.load("$BACKDROP_URL$backdropPath"){
@@ -63,7 +63,7 @@ class MovieDetailActivity : AppCompatActivity() {
         }
 
         title.text = extras.getString(MOVIE_TITLE, "")
-//        rating.rating = extras.getFloat(MOVIE_RATING, 0f) / 2
+        rating.text = extras.getDouble(MOVIE_RATING).toString()
         releaseDate.text = extras.getString(MOVIE_RELEASE_DATE, "")
         overview.text = extras.getString(MOVIE_OVERVIEW, "")
 
