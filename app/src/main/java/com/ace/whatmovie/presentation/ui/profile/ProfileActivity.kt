@@ -1,13 +1,8 @@
 package com.ace.whatmovie.presentation.ui.profile
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.appcompat.app.AppCompatActivity
 import com.ace.whatmovie.R
-import com.ace.whatmovie.databinding.ActivityMainBinding
 import com.ace.whatmovie.databinding.ActivityProfileBinding
 
 class ProfileActivity : AppCompatActivity() {

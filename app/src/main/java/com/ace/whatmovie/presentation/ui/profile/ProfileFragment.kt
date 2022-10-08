@@ -1,17 +1,20 @@
 package com.ace.whatmovie.presentation.ui.profile
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
-import com.ace.whatmovie.R
+import androidx.core.content.edit
+import androidx.fragment.app.Fragment
 import com.ace.whatmovie.data.local.user.AccountEntity
 import com.ace.whatmovie.databinding.FragmentProfileBinding
-import com.ace.whatmovie.databinding.FragmentRegisterBinding
 import com.ace.whatmovie.di.ServiceLocator
+import com.ace.whatmovie.presentation.ui.MainActivity
+import com.ace.whatmovie.presentation.ui.login.LoginFragment
 import com.ace.whatmovie.presentation.ui.register.RegisterViewModel
 import com.ace.whatmovie.utils.viewModelFactory
 
@@ -23,6 +26,8 @@ class ProfileFragment : Fragment() {
     private val viewModel: RegisterViewModel by viewModelFactory {
         RegisterViewModel(ServiceLocator.provideServiceLocator(requireContext()))
     }
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,25 +41,43 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedPreferences = requireContext().getSharedPreferences(
+            LoginFragment.LOGIN_SHARED_PREF,
+            Context.MODE_PRIVATE
+        )
+
         binding.btnSaveAccount.setOnClickListener {
-            createAccount()
+            saveAccount()
         }
 
         binding.btnLogOut.setOnClickListener {
-            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            sharedPreferences.edit {
+                putBoolean(LoginFragment.LOGGED_IN_KEY, false)
+            }
+            activity?.let {
+                val intent = Intent(it, MainActivity::class.java)
+                it.startActivity(intent)
+            }
         }
     }
 
-    private fun createAccount() {
-        if (validateInput()) {
-            val user = AccountEntity(
-                username = binding.etUsername.text.toString(),
-                email = binding.etEmail.text.toString(),
-                password = binding.etPassword.text.toString()
-            )
-            viewModel.registerUser(user)
-            findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-            Toast.makeText(context, "Account Created!", Toast.LENGTH_SHORT).show()
+    private fun saveAccount() {
+        validateInput()
+        viewModel.updateUser(parseFormIntoEntity())
+        updateUsername(parseFormIntoEntity().username)
+        Toast.makeText(context, "Account Updated!", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun parseFormIntoEntity(): AccountEntity {
+        return AccountEntity(
+            username = binding.etUsername.text.toString().trim(),
+            email = binding.etEmail.text.toString().trim(),
+            password = binding.etPassword.text.toString().trim())
+    }
+
+    private fun updateUsername(username: String) {
+        sharedPreferences.edit {
+            putString(LoginFragment.USERNAME, username)
         }
     }
 

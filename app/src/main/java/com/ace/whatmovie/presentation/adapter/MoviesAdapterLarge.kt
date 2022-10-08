@@ -32,11 +32,6 @@ class MoviesAdapterLarge(
         notifyDataSetChanged()
     }
 
-    fun addMovies(movies: MutableList<Movie>) {
-        this.movies.clear()
-        this.movies.addAll(movies)
-        notifyDataSetChanged()
-    }
 
     inner class MovieViewHolder(private val binding: ItemMovieLargeBinding) :
         RecyclerView.ViewHolder(binding.root) {

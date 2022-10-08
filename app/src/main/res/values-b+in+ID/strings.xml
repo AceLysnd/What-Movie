@@ -7,8 +7,8 @@
     <string name="movie_overview">ikhtisar film</string>
     <string name="popular_movies_txt">Film Populer</string>
     <string name="popular_movie_desc">Film Populer Saat Ini</string>
-    <string name="now_playing_movie_txt">Sekarang Memutar Film</string>
-    <string name="currently_playing">Sedang diputar</string>
+    <string name="now_playing_movie_txt">Sedang Tayang</string>
+    <string name="currently_playing">Film yang sedang diputar</string>
     <string name="tv_rating">Peringkat :</string>
     <string name="rating">Peringkat</string>
     <string name="tv_login">Masuk</string>
@@ -24,4 +24,10 @@
     <string name="have_ccount">Sudah Punya Akun?</string>
     <string name="login">Masuk</string>
     <string name="upcoming_movies_txt">Film Mendatang</string>
+    <string name="movies_you_might_like">Film yang mungkin kamu suka</string>
+    <string name="similar_movies">Film Serupa</string>
+    <string name="hi">"Hi, "</string>
+    <string name="username">Username</string>
+    <string name="save">Simpan</string>
+    <string name="log_out">Keluar</string>
 </resources>

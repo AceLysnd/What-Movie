@@ -8,11 +8,6 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.commit
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ace.whatmovie.R
@@ -21,7 +16,6 @@ import com.ace.whatmovie.data.repository.MoviesRepository
 import com.ace.whatmovie.di.ServiceLocator
 import com.ace.whatmovie.presentation.adapter.MoviesAdapter
 import com.ace.whatmovie.presentation.adapter.MoviesAdapterLarge
-import com.ace.whatmovie.presentation.ui.MainActivity
 import com.ace.whatmovie.presentation.ui.detail.*
 import com.ace.whatmovie.presentation.ui.login.LoginFragment
 import com.ace.whatmovie.presentation.ui.login.LoginFragment.Companion.USERNAME
@@ -164,6 +158,11 @@ class HomeActivity : AppCompatActivity() {
     private fun goToProfile() {
         val i = Intent(this, ProfileActivity::class.java)
         startActivity(i)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setUsername()
     }
 
     private var backButtonCount = 0

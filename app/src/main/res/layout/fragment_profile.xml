@@ -114,10 +114,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/save"
+            android:text="@string/log_out"
             android:textColor="@color/white"
             app:backgroundTint="@color/gray"
-            app:layout_constraintTop_toBottomOf="@id/til_confirm_password"
+            app:layout_constraintTop_toBottomOf="@id/btn_save_account"
             tools:layout_editor_absoluteX="16dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

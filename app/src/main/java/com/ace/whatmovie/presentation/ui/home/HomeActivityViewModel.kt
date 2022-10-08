@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ace.whatmovie.data.local.user.AccountEntity
-import com.ace.whatmovie.data.model.Movie
 import com.ace.whatmovie.data.repository.LocalRepository
-import com.ace.whatmovie.data.repository.MoviesRepository
 import com.ace.whatmovie.wrapper.Resource
 import kotlinx.coroutines.launch
 

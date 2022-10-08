@@ -5,10 +5,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.ace.whatmovie.databinding.ItemMovieBinding
-import com.ace.whatmovie.databinding.ItemMovieLargeBinding
 import com.ace.whatmovie.data.model.Movie
-import com.ace.whatmovie.presentation.ui.MainActivity.Companion.BACKDROP_URL
+import com.ace.whatmovie.databinding.ItemMovieBinding
 import com.ace.whatmovie.presentation.ui.MainActivity.Companion.POSTER_URL
 
 

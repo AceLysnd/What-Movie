@@ -1,6 +1,7 @@
 package com.ace.whatmovie.presentation.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -27,6 +28,18 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private var backButtonCount = 0
+    override fun onBackPressed() {
+//        super.onBackPressed()
+        if (backButtonCount < 1) {
+            Toast.makeText(this, "Press back again to close app", Toast.LENGTH_SHORT).show()
+            backButtonCount += 1
+        } else {
+            moveTaskToBack(true)
+            backButtonCount = 0
+        }
     }
 
     companion object {

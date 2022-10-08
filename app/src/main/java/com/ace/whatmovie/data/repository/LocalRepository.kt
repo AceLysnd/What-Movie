@@ -8,6 +8,8 @@ interface LocalRepository {
 
     suspend fun createAccount(account: AccountEntity): Resource<Number>
 
+    suspend fun updateAccount(account: AccountEntity): Resource<Number>
+
     suspend fun getAccount(username: String): Resource<AccountEntity>
 }
 
@@ -18,6 +20,12 @@ class LocalRepositoryImpl(
     override suspend fun createAccount(account: AccountEntity): Resource<Number> {
         return proceed {
             accountDataSource.registerAccount(account)
+        }
+    }
+
+    override suspend fun updateAccount(account: AccountEntity): Resource<Number> {
+        return proceed {
+            accountDataSource.updateAccount(account)
         }
     }
 
