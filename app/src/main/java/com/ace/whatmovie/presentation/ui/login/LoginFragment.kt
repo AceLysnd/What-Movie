@@ -16,11 +16,14 @@ import com.ace.whatmovie.databinding.FragmentLoginBinding
 import com.ace.whatmovie.di.ServiceLocator
 import com.ace.whatmovie.utils.viewModelFactory
 import com.ace.whatmovie.wrapper.Resource
+import kotlin.properties.Delegates
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
+    var username by Delegates.notNull<Int>()
 
     private val viewModel: LoginViewModel by viewModelFactory {
         LoginViewModel(ServiceLocator.provideServiceLocator(requireContext()))
@@ -44,6 +47,7 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener { checkLogin() }
 
         if (isLoginInfoValid()) {
+            checkLogin()
             goToHome()
         }
 
@@ -103,13 +107,14 @@ class LoginFragment : Fragment() {
             } else {
                 Toast.makeText(context, "Username or password incorrect!", Toast.LENGTH_SHORT).show()
             }
-            saveLoginInfo(userLoggedIn)
+            saveLoginInfo(userLoggedIn,account.username)
         }
     }
 
-    private fun saveLoginInfo(loginInfo: Boolean) {
+    private fun saveLoginInfo(loginInfo: Boolean, username: String) {
         sharedPreferences.edit {
             putBoolean(LOGGED_IN_KEY, loginInfo)
+            putString(USERNAME, username)
         }
     }
 
@@ -120,5 +125,6 @@ class LoginFragment : Fragment() {
     companion object {
         const val LOGIN_SHARED_PREF = "login_shared_pref"
         const val LOGGED_IN_KEY = "logged_in"
+        const val USERNAME = "username"
     }
 }

@@ -1,4 +1,4 @@
-package com.ace.whatmovie.model
+package com.ace.whatmovie.data.model
 
 
 import com.google.gson.annotations.SerializedName

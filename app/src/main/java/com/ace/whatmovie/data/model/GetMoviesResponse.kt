@@ -1,9 +1,10 @@
-package com.ace.whatmovie.model
+package com.ace.whatmovie.data.model
 
 import com.google.gson.annotations.SerializedName
 
 data class GetMoviesResponse(
     @SerializedName("page") val page: Int,
     @SerializedName("results") val movies: List<Movie>,
-    @SerializedName("total_pages") val pages: Int
+    @SerializedName("total_pages") val pages: Int,
+    @SerializedName("movie_id")val id: Int,
 )

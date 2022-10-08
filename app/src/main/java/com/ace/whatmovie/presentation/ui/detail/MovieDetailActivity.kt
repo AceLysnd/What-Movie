@@ -2,11 +2,16 @@ package com.ace.whatmovie.presentation.ui.detail
 
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.ace.whatmovie.R
+import com.ace.whatmovie.data.model.Movie
+import com.ace.whatmovie.data.repository.MoviesRepository
+import com.ace.whatmovie.presentation.adapter.MoviesAdapter
 import com.ace.whatmovie.presentation.ui.MainActivity.Companion.BACKDROP_URL
 import com.ace.whatmovie.presentation.ui.MainActivity.Companion.POSTER_URL
 
@@ -16,6 +21,7 @@ const val MOVIE_TITLE = "extra_movie_title"
 const val MOVIE_RATING = "extra_movie_rating"
 const val MOVIE_RELEASE_DATE = "extra_movie_release_date"
 const val MOVIE_OVERVIEW = "extra_movie_overview"
+const val MOVIE_ID = "extra_movie_id"
 
 class MovieDetailActivity : AppCompatActivity() {
     private lateinit var backdrop: ImageView
@@ -24,8 +30,11 @@ class MovieDetailActivity : AppCompatActivity() {
     private lateinit var rating: TextView
     private lateinit var releaseDate: TextView
     private lateinit var overview: TextView
+    private lateinit var id: TextView
 
+    private lateinit var similarMovies: RecyclerView
 
+    private lateinit var similarMoviesAdapter: MoviesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +47,10 @@ class MovieDetailActivity : AppCompatActivity() {
         releaseDate = findViewById(R.id.movie_release_date)
         overview = findViewById(R.id.movie_overview)
 
+        id = findViewById(R.id.test_id)
+
+        similarMovies = findViewById(R.id.rv_similar_movies)
+
         val extras = intent.extras
 
         if (extras != null) {
@@ -46,6 +59,59 @@ class MovieDetailActivity : AppCompatActivity() {
             finish()
         }
 
+        setLinearLayouts()
+        setMovieAdapters()
+        getMovies()
+    }
+
+    private fun getMovies() {
+        MoviesRepository.getPopularMovies(
+            onSuccess = ::fetchSimilarMovies,
+            onError = ::onError,
+//            id = MOVIE_ID.toInt()
+        )
+    }
+//    private fun getMovieId(movie : Movie?= null): Int? {
+//        return movie?.id
+//    }
+    private fun setLinearLayouts(){
+        similarMovies.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+    }
+
+    private fun setMovieAdapters(){
+        similarMoviesAdapter = MoviesAdapter(mutableListOf()) { movie -> showMovieDetails(movie) }
+        similarMovies.adapter = similarMoviesAdapter
+    }
+
+
+
+    private fun showMovieDetails(movie: Movie) {
+        backdrop.load("$BACKDROP_URL${movie.backdropPath}"){
+                crossfade(true)
+            }
+
+
+        poster.load("$POSTER_URL${movie.posterPath}"){
+                crossfade(true)
+            }
+
+        title.text = movie.title
+        rating.text = movie.voteAverage.toString()
+        releaseDate.text = movie.releaseDate
+        overview.text = movie.overview
+        id.text = movie.id.toString()
+    }
+
+    private fun fetchSimilarMovies(movies: MutableList<Movie>) {
+        similarMoviesAdapter.addMovies(movies)
+    }
+
+    private fun onError() {
+        Toast.makeText(this, "error getting movies", Toast.LENGTH_SHORT).show()
     }
 
     private fun getDetails(extras: Bundle) {
@@ -66,6 +132,6 @@ class MovieDetailActivity : AppCompatActivity() {
         rating.text = extras.getDouble(MOVIE_RATING).toString()
         releaseDate.text = extras.getString(MOVIE_RELEASE_DATE, "")
         overview.text = extras.getString(MOVIE_OVERVIEW, "")
-
+        id.text = extras.getInt(MOVIE_ID, 0).toString()
     }
 }

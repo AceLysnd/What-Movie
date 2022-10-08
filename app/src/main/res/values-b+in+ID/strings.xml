@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">What Movie</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Halo fragmen kosong</string>
+    <string name="movie_title">Judul Film</string>
+    <string name="movie_release_date">tanggal rilis</string>
+    <string name="movie_overview">ikhtisar film</string>
+    <string name="popular_movies_txt">Film Populer</string>
+    <string name="popular_movie_desc">Film Populer Saat Ini</string>
+    <string name="now_playing_movie_txt">Sekarang Memutar Film</string>
+    <string name="currently_playing">Sedang diputar</string>
+    <string name="tv_rating">Peringkat :</string>
+    <string name="rating">Peringkat</string>
+    <string name="tv_login">Masuk</string>
+    <string name="enter_username">Masukkan Nama Pengguna</string>
+    <string name="enter_password">Masukkan Kata Sandi</string>
+    <string name="btn_login">Masuk</string>
+    <string name="no_account">Belum Punya Akun?</string>
+    <string name="register">Daftar</string>
+    <string name="tv_create_new_account">Buat Akun Baru</string>
+    <string name="enter_email">Masukkan Email</string>
+    <string name="confirm_password">Konfirmasi Kata Sandi</string>
+    <string name="btn_create_account">Buat Akun</string>
+    <string name="have_ccount">Sudah Punya Akun?</string>
+    <string name="login">Masuk</string>
+    <string name="upcoming_movies_txt">Film Mendatang</string>
+</resources>

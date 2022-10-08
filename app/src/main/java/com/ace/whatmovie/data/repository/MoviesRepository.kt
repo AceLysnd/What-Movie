@@ -2,8 +2,8 @@ package com.ace.whatmovie.data.repository
 
 import android.util.Log
 import com.ace.whatmovie.BuildConfig
-import com.ace.whatmovie.model.GetMoviesResponse
-import com.ace.whatmovie.model.Movie
+import com.ace.whatmovie.data.model.GetMoviesResponse
+import com.ace.whatmovie.data.model.Movie
 import com.ace.whatmovie.services.MovieApiService
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -15,20 +15,8 @@ import java.util.concurrent.TimeUnit
 
 object MoviesRepository {
 
-    private val api: MovieApiService
-
-    init {
-        val okHttpClient = OkHttpClient.Builder()
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .readTimeout(120, TimeUnit.SECONDS)
-            .build()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .build()
-            api = retrofit.create(MovieApiService::class.java)
+    private val api: MovieApiService by lazy {
+        MovieApiService.invoke()
     }
 
     fun getPopularMovies(
@@ -61,12 +49,73 @@ object MoviesRepository {
             })
     }
 
-    fun getNowPlayingMovie(
+    fun getNowPlayingMovies(
         page: Int = 1,
         onSuccess: (movies: MutableList<Movie>) -> Unit,
         onError: () -> Unit
     ) {
-        api.getNowPlayingMovie(page = page)
+        api.getNowPlayingMovies(page = page)
+            .enqueue(object : Callback<GetMoviesResponse> {
+                override fun onResponse(
+                    call: Call<GetMoviesResponse>,
+                    response: Response<GetMoviesResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+
+                        if (responseBody != null) {
+                            onSuccess.invoke(responseBody.movies as MutableList<Movie>)
+                        } else {
+                            onError.invoke()
+                        }
+                    } else {
+                        onError.invoke()
+                    }
+                }
+
+                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
+                    Log.e("Repository", "error getting movies", t)
+                }
+            })
+    }
+
+    fun getUpcomingMovies(
+        page: Int = 1,
+        onSuccess: (movies: MutableList<Movie>) -> Unit,
+        onError: () -> Unit
+    ) {
+        api.getUpcomingMovies(page = page)
+            .enqueue(object : Callback<GetMoviesResponse> {
+                override fun onResponse(
+                    call: Call<GetMoviesResponse>,
+                    response: Response<GetMoviesResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+
+                        if (responseBody != null) {
+                            onSuccess.invoke(responseBody.movies as MutableList<Movie>)
+                        } else {
+                            onError.invoke()
+                        }
+                    } else {
+                        onError.invoke()
+                    }
+                }
+
+                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
+                    Log.e("Repository", "error getting movies", t)
+                }
+            })
+    }
+
+    fun getSimilarMovies(
+        page: Int = 1,
+        id: Int,
+        onSuccess: (movies: MutableList<Movie>) -> Unit,
+        onError: () -> Unit,
+    ) {
+        api.getSimilarMovies(page = page, id = id)
             .enqueue(object : Callback<GetMoviesResponse> {
                 override fun onResponse(
                     call: Call<GetMoviesResponse>,

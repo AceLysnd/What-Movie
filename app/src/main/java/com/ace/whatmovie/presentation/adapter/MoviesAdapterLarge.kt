@@ -3,22 +3,20 @@ package com.ace.whatmovie.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.ace.whatmovie.databinding.ItemMovieBinding
-import com.ace.whatmovie.databinding.ItemMovieLargeBinding
 import com.ace.whatmovie.data.model.Movie
+import com.ace.whatmovie.databinding.ItemMovieLargeBinding
 import com.ace.whatmovie.presentation.ui.MainActivity.Companion.BACKDROP_URL
-import com.ace.whatmovie.presentation.ui.MainActivity.Companion.POSTER_URL
 
-
-class MoviesAdapter(
+class MoviesAdapterLarge(
     private var movies: MutableList<Movie>,
     private val onMovieClick: (movie: Movie) -> Unit
-) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
+) : RecyclerView.Adapter<MoviesAdapterLarge.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMovieLargeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(binding)
     }
 
@@ -40,16 +38,20 @@ class MoviesAdapter(
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder(private val binding: ItemMovieBinding) :
+    inner class MovieViewHolder(private val binding: ItemMovieLargeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val poster: ImageView = binding.itemMoviePoster
+        private val poster: ImageView = binding.itemMoviePosterLarge
+        private val title: TextView = binding.movieTitle
 
         fun bind(movie: Movie) {
-            poster.load("$POSTER_URL${movie.posterPath}") {
+            title.text = movie.title
+            poster.load("$BACKDROP_URL${movie.backdropPath}") {
                 crossfade(true)
             }
 
             itemView.setOnClickListener { onMovieClick.invoke(movie) }
         }
     }
+
+
 }

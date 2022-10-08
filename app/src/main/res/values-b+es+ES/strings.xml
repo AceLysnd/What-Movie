@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">What Movie</string>
+    <string name="hello_blank_fragment">Hola fragmento en blanco</string>
+    <string name="movie_title">Título de la película</string>
+    <string name="movie_release_date">fecha de lanzamiento</string>
+    <string name="movie_overview">resumen de la película</string>
+    <string name="popular_movies_txt">Películas populares</string>
+    <string name="popular_movie_desc">Películas populares actuales</string>
+    <string name="now_playing_movie_txt">Reproducción de películas</string>
+    <string name="currently_playing">Reproduciendo actualmente</string>
+    <string name="tv_rating">Calificación:</string>
+    <string name="rating">Calificación</string>
+    <string name="tv_login">Iniciar sesión</string>
+    <string name="enter_username">Ingresar nombre de usuario</string>
+    <string name="enter_password">Ingresar contraseña</string>
+    <string name="btn_login">Iniciar sesión</string>
+    <string name="no_account">¿No tienes una cuenta?</string>
+    <string name="register">Registrarse</string>
+    <string name="tv_create_new_account">Crear nueva cuenta</string>
+    <string name="enter_email">Ingresar correo electrónico</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="btn_create_account">Crear cuenta</string>
+    <string name="have_ccount">¿Ya tienes una cuenta?</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="upcoming_movies_txt">Próximas películas</string>
+</resources>

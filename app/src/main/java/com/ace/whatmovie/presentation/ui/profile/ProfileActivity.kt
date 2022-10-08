@@ -1,0 +1,35 @@
+package com.ace.whatmovie.presentation.ui.profile
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import com.ace.whatmovie.R
+import com.ace.whatmovie.databinding.ActivityMainBinding
+import com.ace.whatmovie.databinding.ActivityProfileBinding
+
+class ProfileActivity : AppCompatActivity() {
+    private var _binding: ActivityProfileBinding? = null
+    private val binding get() = _binding!!
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        _binding = ActivityProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val FragmentManager = supportFragmentManager
+        val FragmentTransaction = FragmentManager.beginTransaction()
+
+        val profileFragment = ProfileFragment()
+        FragmentTransaction.add(R.id.profile_fragment_container, profileFragment)
+        FragmentTransaction.commit()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+}
