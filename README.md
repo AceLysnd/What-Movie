@@ -14,4 +14,4 @@ Kriteria :
 - Memperbaiki arsitektur untuk API Service dan Retrofit
 
 Known Bugs :
--
+None
