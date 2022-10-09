@@ -15,12 +15,12 @@ class ProfileActivity : AppCompatActivity() {
         _binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val FragmentManager = supportFragmentManager
-        val FragmentTransaction = FragmentManager.beginTransaction()
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
 
         val profileFragment = ProfileFragment()
-        FragmentTransaction.add(R.id.profile_fragment_container, profileFragment)
-        FragmentTransaction.commit()
+        fragmentTransaction.add(R.id.profile_fragment_container, profileFragment)
+        fragmentTransaction.commit()
     }
 
     override fun onDestroy() {

@@ -119,7 +119,6 @@
             app:backgroundTint="@color/gray"
             app:layout_constraintTop_toBottomOf="@id/btn_save_account"
             tools:layout_editor_absoluteX="16dp" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

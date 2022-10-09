@@ -23,4 +23,21 @@
     <string name="have_ccount">¿Ya tienes una cuenta?</string>
     <string name="login">Iniciar sesión</string>
     <string name="upcoming_movies_txt">Próximas películas</string>
+    <string name="movies_you_might_like">Películas que te pueden gustar</string>
+    <string name="similar_movies">Películas similares</string>
+    <string name="hi">Hola,</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="save">Guardar</string>
+    <string name="log_out">cerrar sesión</string>
+    <string name="error_getting_movies">error al obtener películas</string>
+    <string name="press_back_again">Presione atrás nuevamente para cerrar la aplicación</string>
+    <string name="error_getting_data">Error al obtener datos</string>
+    <string name="username_is_empty">¡El nombre de usuario está vacío!</string>
+    <string name="password_is_empty">¡La contraseña está vacía!</string>
+    <string name="username_or_password_incorrect">¡Nombre de usuario o contraseña incorrectos!</string>
+    <string name="account_updated">¡Cuenta actualizada!</string>
+    <string name="email_is_empty">¡El correo electrónico está vacío!</string>
+    <string name="please_confirm_password">Por favor, confirme la contraseña</string>
+    <string name="password_mismatch">¡Compruébalo de nuevo, la contraseña no coincide!</string>
+    <string name="account_created">¡Cuenta creada!</string>
 </resources>

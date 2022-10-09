@@ -21,7 +21,6 @@ const val MOVIE_TITLE = "extra_movie_title"
 const val MOVIE_RATING = "extra_movie_rating"
 const val MOVIE_RELEASE_DATE = "extra_movie_release_date"
 const val MOVIE_OVERVIEW = "extra_movie_overview"
-const val MOVIE_ID = "extra_movie_id"
 
 class MovieDetailActivity : AppCompatActivity() {
     private lateinit var backdrop: ImageView
@@ -30,7 +29,6 @@ class MovieDetailActivity : AppCompatActivity() {
     private lateinit var rating: TextView
     private lateinit var releaseDate: TextView
     private lateinit var overview: TextView
-    private lateinit var id: TextView
 
     private lateinit var similarMovies: RecyclerView
 
@@ -46,8 +44,6 @@ class MovieDetailActivity : AppCompatActivity() {
         rating = findViewById(R.id.movie_rating)
         releaseDate = findViewById(R.id.movie_release_date)
         overview = findViewById(R.id.movie_overview)
-
-        id = findViewById(R.id.test_id)
 
         similarMovies = findViewById(R.id.rv_similar_movies)
 
@@ -65,15 +61,11 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun getMovies() {
-        MoviesRepository.getPopularMovies(
+        MoviesRepository.getSimilarMovies(
             onSuccess = ::fetchSimilarMovies,
             onError = ::onError,
-//            id = MOVIE_ID.toInt()
         )
     }
-//    private fun getMovieId(movie : Movie?= null): Int? {
-//        return movie?.id
-//    }
     private fun setLinearLayouts(){
         similarMovies.layoutManager = LinearLayoutManager(
             this,
@@ -103,7 +95,6 @@ class MovieDetailActivity : AppCompatActivity() {
         rating.text = movie.voteAverage.toString()
         releaseDate.text = movie.releaseDate
         overview.text = movie.overview
-        id.text = movie.id.toString()
     }
 
     private fun fetchSimilarMovies(movies: MutableList<Movie>) {
@@ -111,7 +102,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun onError() {
-        Toast.makeText(this, "error getting movies", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.error_getting_movies), Toast.LENGTH_SHORT).show()
     }
 
     private fun getDetails(extras: Bundle) {
@@ -132,6 +123,5 @@ class MovieDetailActivity : AppCompatActivity() {
         rating.text = extras.getDouble(MOVIE_RATING).toString()
         releaseDate.text = extras.getString(MOVIE_RELEASE_DATE, "")
         overview.text = extras.getString(MOVIE_OVERVIEW, "")
-        id.text = extras.getInt(MOVIE_ID, 0).toString()
     }
 }

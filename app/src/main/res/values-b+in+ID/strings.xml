@@ -30,4 +30,15 @@
     <string name="username">Username</string>
     <string name="save">Simpan</string>
     <string name="log_out">Keluar</string>
+    <string name="error_getting_movies">error mengambil film</string>
+    <string name="press_back_again">Tekan kembali tombol back untuk menutup app</string>
+    <string name="error_getting_data">error saat mengambil data</string>
+    <string name="username_is_empty">Username kosong!</string>
+    <string name="password_is_empty">Password kosong!</string>
+    <string name="username_or_password_incorrect">Username atau password salah!</string>
+    <string name="account_updated">Akun diperbarui!</string>
+    <string name="email_is_empty">Email kosong!</string>
+    <string name="please_confirm_password">Konfirmasi password</string>
+    <string name="password_mismatch">Cek lagi, password tidak cocok!</string>
+    <string name="account_created">Akun dibuat!</string>
 </resources>

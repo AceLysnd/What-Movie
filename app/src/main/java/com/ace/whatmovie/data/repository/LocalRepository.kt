@@ -6,6 +6,7 @@ import com.ace.whatmovie.wrapper.Resource
 
 interface LocalRepository {
 
+    suspend fun getAccountById(id: Long): Resource<AccountEntity?>
     suspend fun createAccount(account: AccountEntity): Resource<Number>
 
     suspend fun updateAccount(account: AccountEntity): Resource<Number>
@@ -16,6 +17,12 @@ interface LocalRepository {
 class LocalRepositoryImpl(
     private val accountDataSource: AccountDataSource,
 ) : LocalRepository {
+
+    override suspend fun getAccountById(id: Long): Resource<AccountEntity?> {
+        return proceed {
+            accountDataSource.getAccountById(id)
+        }
+    }
 
     override suspend fun createAccount(account: AccountEntity): Resource<Number> {
         return proceed {

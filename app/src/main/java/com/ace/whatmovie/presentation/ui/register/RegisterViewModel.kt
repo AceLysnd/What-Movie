@@ -10,7 +10,14 @@ import kotlinx.coroutines.launch
 
 class RegisterViewModel(private val repository: LocalRepository) : ViewModel() {
 
+    val detailDataResult = MutableLiveData<Resource<AccountEntity?>>()
     val updateResult = MutableLiveData<Resource<Number>>()
+
+    fun getAccountById(id: Long) {
+        viewModelScope.launch {
+            detailDataResult.postValue(repository.getAccountById(id))
+        }
+    }
 
     fun registerUser(account: AccountEntity) {
         viewModelScope.launch {

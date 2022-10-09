@@ -30,4 +30,15 @@
     <string name="username">Username</string>
     <string name="save">Save</string>
     <string name="log_out">log out</string>
+    <string name="error_getting_movies">error getting movies</string>
+    <string name="press_back_again">Press back again to close app</string>
+    <string name="error_getting_data">Error while getting data</string>
+    <string name="username_is_empty">Username is empty!</string>
+    <string name="password_is_empty">Password is empty!</string>
+    <string name="username_or_password_incorrect">Username or password incorrect!</string>
+    <string name="account_updated">Account Updated!</string>
+    <string name="email_is_empty">Email is empty!</string>
+    <string name="please_confirm_password">Please confirm password</string>
+    <string name="password_mismatch">Check again, password mismatch!</string>
+    <string name="account_created">Account Created!</string>
 </resources>

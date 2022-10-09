@@ -124,7 +124,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun onError() {
-        Toast.makeText(this, "error getting movies", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.error_getting_movies), Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -141,7 +141,8 @@ class HomeActivity : AppCompatActivity() {
         intent.putExtra(MOVIE_RATING, movie.voteAverage)
         intent.putExtra(MOVIE_RELEASE_DATE, movie.releaseDate)
         intent.putExtra(MOVIE_OVERVIEW, movie.overview)
-        intent.putExtra(MOVIE_ID, movie.id)
+
+        MOVIE_ID_INT = movie.id!!
         startActivity(intent)
     }
 
@@ -169,11 +170,15 @@ class HomeActivity : AppCompatActivity() {
     override fun onBackPressed() {
 //        super.onBackPressed()
         if (backButtonCount < 1) {
-            Toast.makeText(this, "Press back again to close app", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.press_back_again), Toast.LENGTH_SHORT).show()
             backButtonCount += 1
         } else {
             moveTaskToBack(true)
             backButtonCount = 0
         }
+    }
+
+    companion object {
+        var MOVIE_ID_INT: Int = 0
     }
 }

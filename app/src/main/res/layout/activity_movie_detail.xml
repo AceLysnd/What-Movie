@@ -125,15 +125,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             tools:listitem="@layout/item_movie" />
-        <TextView
-            android:id="@+id/test_id"
-            style="@style/MovieHeadlineDesc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Test Id"
-            android:textColor="?attr/textFillColor"
-            app:layout_constraintTop_toBottomOf="@+id/rv_similar_movies"
-            tools:layout_editor_absoluteX="16dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

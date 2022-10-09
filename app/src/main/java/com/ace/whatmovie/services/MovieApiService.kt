@@ -34,9 +34,9 @@ interface MovieApiService {
 
     @GET("movie/{movie_id}/similar")
     fun getSimilarMovies(
+        @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
-        @Query("page") page: Int,
-        @Path("movie_id") id: Int
+        @Query("page") page: Int
     ): Call<GetMoviesResponse>
 
     companion object {

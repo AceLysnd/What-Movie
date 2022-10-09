@@ -1,17 +1,13 @@
 package com.ace.whatmovie.data.repository
 
 import android.util.Log
-import com.ace.whatmovie.BuildConfig
 import com.ace.whatmovie.data.model.GetMoviesResponse
 import com.ace.whatmovie.data.model.Movie
+import com.ace.whatmovie.presentation.ui.home.HomeActivity.Companion.MOVIE_ID_INT
 import com.ace.whatmovie.services.MovieApiService
-import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
 object MoviesRepository {
 
@@ -111,11 +107,11 @@ object MoviesRepository {
 
     fun getSimilarMovies(
         page: Int = 1,
-        id: Int,
+        movieId: Int = MOVIE_ID_INT,
         onSuccess: (movies: MutableList<Movie>) -> Unit,
         onError: () -> Unit,
     ) {
-        api.getSimilarMovies(page = page, id = id)
+        api.getSimilarMovies(page = page, movieId = movieId)
             .enqueue(object : Callback<GetMoviesResponse> {
                 override fun onResponse(
                     call: Call<GetMoviesResponse>,

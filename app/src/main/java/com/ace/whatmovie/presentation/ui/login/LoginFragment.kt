@@ -71,7 +71,7 @@ class LoginFragment : Fragment() {
                     is Resource.Error ->
                         Toast.makeText(
                             requireContext(),
-                            "Error while getting data",
+                            getString(R.string.error_getting_data),
                             Toast.LENGTH_SHORT
                         ).show()
                     else -> {}
@@ -87,11 +87,11 @@ class LoginFragment : Fragment() {
 
         if (username.isEmpty()) {
             isValid = false
-            binding.etUsername.error = "Username is empty!"
+            binding.etUsername.error = getString(R.string.username_is_empty)
         }
         if (password.isEmpty()) {
             isValid = false
-            binding.etPassword.error = "Password is empty!"
+            binding.etPassword.error = getString(R.string.password_is_empty)
         }
         return isValid
     }
@@ -105,16 +105,21 @@ class LoginFragment : Fragment() {
             if (userLoggedIn) {
                 goToHome()
             } else {
-                Toast.makeText(context, "Username or password incorrect!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    getString(R.string.username_or_password_incorrect),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-            saveLoginInfo(userLoggedIn,account.username)
+            saveLoginInfo(userLoggedIn, account.username, account.accountId)
         }
     }
 
-    private fun saveLoginInfo(loginInfo: Boolean, username: String) {
+    private fun saveLoginInfo(loginInfo: Boolean, username: String, accountId: Long) {
         sharedPreferences.edit {
             putBoolean(LOGGED_IN_KEY, loginInfo)
             putString(USERNAME, username)
+            putLong(ACCOUNT_ID, accountId)
         }
     }
 
@@ -126,5 +131,6 @@ class LoginFragment : Fragment() {
         const val LOGIN_SHARED_PREF = "login_shared_pref"
         const val LOGGED_IN_KEY = "logged_in"
         const val USERNAME = "username"
+        const val ACCOUNT_ID = "account_id"
     }
 }

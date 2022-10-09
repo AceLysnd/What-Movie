@@ -51,7 +51,7 @@ class RegisterFragment : Fragment() {
             )
             viewModel.registerUser(user)
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-            Toast.makeText(context, "Account Created!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.account_created), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -64,23 +64,23 @@ class RegisterFragment : Fragment() {
 
         if (username.isEmpty()) {
             isValid = false
-            binding.etUsername.error = "Username is empty!"
+            binding.etUsername.error = getString(R.string.username_is_empty)
         }
         if (email.isEmpty()) {
             isValid = false
-            binding.etEmail.error = "Email is empty!"
+            binding.etEmail.error = getString(R.string.email_is_empty)
         }
         if (password.isEmpty()) {
             isValid = false
-            binding.etPassword.error = "Password is empty!"
+            binding.etPassword.error = getString(R.string.password_is_empty)
         }
         if (confirmPassword.isEmpty()) {
             isValid = false
-            binding.etConfirmPassword.error = "Please confirm password"
+            binding.etConfirmPassword.error = getString(R.string.confirm_password)
         }
         if (password != confirmPassword) {
             isValid = false
-            Toast.makeText(requireContext(), "Check again, password mismatch!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.password_mismatch), Toast.LENGTH_SHORT).show()
         }
         return isValid
     }

@@ -16,4 +16,7 @@ interface AccountDao {
 
     @Query("SELECT * FROM account_information WHERE username = :username")
     suspend fun getUser(username: String) : AccountEntity
+
+    @Query("SELECT * FROM ACCOUNT_INFORMATION WHERE accountId == :id LIMIT 1")
+    suspend fun getAccountById(id : Long) : AccountEntity?
 }
