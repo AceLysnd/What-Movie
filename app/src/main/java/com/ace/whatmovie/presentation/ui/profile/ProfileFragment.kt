@@ -26,8 +26,8 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: RegisterViewModel by viewModelFactory {
-        RegisterViewModel(ServiceLocator.provideServiceLocator(requireContext()))
+    private val viewModel: ProfileViewModel by viewModelFactory {
+        ProfileViewModel(ServiceLocator.provideServiceLocator(requireContext()))
     }
 
     private lateinit var sharedPreferences: SharedPreferences
@@ -95,10 +95,14 @@ class ProfileFragment : Fragment() {
     }
 
     private fun saveAccount() {
-        validateInput()
-        viewModel.updateUser(parseFormIntoEntity())
-        updateUsername(parseFormIntoEntity().username)
-        Toast.makeText(context, getString(R.string.account_updated), Toast.LENGTH_SHORT).show()
+        if (validateInput()) {
+            viewModel.updateUser(parseFormIntoEntity())
+            updateUsername(parseFormIntoEntity().username)
+            Toast.makeText(context, getString(R.string.account_updated), Toast.LENGTH_SHORT).show()
+        } else{
+            Toast.makeText(context, getString(R.string.fail_update_account), Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun bindDataToForm(data: AccountEntity?) {
