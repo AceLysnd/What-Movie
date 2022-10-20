@@ -3,6 +3,7 @@ package com.ace.whatmovie.di
 import android.content.Context
 import com.ace.whatmovie.data.local.AppDatabase
 import com.ace.whatmovie.data.local.user.*
+import com.ace.whatmovie.data.model.AccountDataStoreManager
 import com.ace.whatmovie.data.repository.LocalRepository
 import com.ace.whatmovie.data.repository.LocalRepositoryImpl
 
@@ -20,9 +21,13 @@ object ServiceLocator {
         return AccountDataSourceImpl(provideAccountDao(context))
     }
 
+    fun providePrefs(context: Context): AccountDataStoreManager {
+        return AccountDataStoreManager(context)
+    }
+
     fun provideServiceLocator(context: Context): LocalRepository {
         return LocalRepositoryImpl(
-            provideUserDataSource(context),
+            provideUserDataSource(context), providePrefs(context)
         )
     }
 }

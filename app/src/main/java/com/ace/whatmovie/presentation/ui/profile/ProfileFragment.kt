@@ -1,25 +1,19 @@
 package com.ace.whatmovie.presentation.ui.profile
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import com.ace.whatmovie.R
 import com.ace.whatmovie.data.local.user.AccountEntity
+import com.ace.whatmovie.data.model.Prefs
 import com.ace.whatmovie.databinding.FragmentProfileBinding
 import com.ace.whatmovie.di.ServiceLocator
 import com.ace.whatmovie.presentation.ui.MainActivity
-import com.ace.whatmovie.presentation.ui.login.LoginFragment
-import com.ace.whatmovie.presentation.ui.login.LoginFragment.Companion.ACCOUNT_ID
-import com.ace.whatmovie.presentation.ui.register.RegisterViewModel
 import com.ace.whatmovie.utils.viewModelFactory
-import com.ace.whatmovie.wrapper.Resource
 
 
 class ProfileFragment : Fragment() {
@@ -29,8 +23,6 @@ class ProfileFragment : Fragment() {
     private val viewModel: ProfileViewModel by viewModelFactory {
         ProfileViewModel(ServiceLocator.provideServiceLocator(requireContext()))
     }
-
-    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,37 +36,13 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedPreferences = requireContext().getSharedPreferences(
-            LoginFragment.LOGIN_SHARED_PREF,
-            Context.MODE_PRIVATE
-        )
-
         observeData()
-        getInitialData()
         setOnclickListeners()
     }
 
-    private fun getAccountId(): Long? {
-        return sharedPreferences.getLong(ACCOUNT_ID, 0)
-    }
-
-    private fun getInitialData() {
-        getAccountId()?.let { viewModel.getAccountById(it) }
-    }
-
     private fun observeData() {
-        viewModel.detailDataResult.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Success -> bindDataToForm(it.payload)
-                is Resource.Error -> {
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.error_getting_data),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                else -> {}
-            }
+        viewModel.getAccountPrefs().observe(viewLifecycleOwner) {
+                bindDataToForm(it)
         }
     }
 
@@ -84,9 +52,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.btnLogOut.setOnClickListener {
-            sharedPreferences.edit {
-                putBoolean(LoginFragment.LOGGED_IN_KEY, false)
-            }
+            viewModel.saveLoginStatus(false)
             activity?.let {
                 val intent = Intent(it, MainActivity::class.java)
                 it.startActivity(intent)
@@ -97,7 +63,6 @@ class ProfileFragment : Fragment() {
     private fun saveAccount() {
         if (validateInput()) {
             viewModel.updateUser(parseFormIntoEntity())
-            updateUsername(parseFormIntoEntity().username)
             Toast.makeText(context, getString(R.string.account_updated), Toast.LENGTH_SHORT).show()
         } else{
             Toast.makeText(context, getString(R.string.fail_update_account), Toast.LENGTH_SHORT).show()
@@ -105,12 +70,12 @@ class ProfileFragment : Fragment() {
 
     }
 
-    private fun bindDataToForm(data: AccountEntity?) {
-        data?.let {
+    private fun bindDataToForm(prefs: Prefs?) {
+        prefs?.let {
             binding.etPassword.setText("")
             binding.etConfirmPassword.setText("")
-            binding.etEmail.setText(data.email)
-            binding.etUsername.setText(data.username)
+            binding.etEmail.setText(prefs.email)
+            binding.etUsername.setText(prefs.username)
         }
     }
 
@@ -120,13 +85,10 @@ class ProfileFragment : Fragment() {
             email = binding.etEmail.text.toString().trim(),
             password = binding.etPassword.text.toString().trim()
         ).apply {
-            accountId = getAccountId()!!
-        }
-    }
-
-    private fun updateUsername(username: String) {
-        sharedPreferences.edit {
-            putString(LoginFragment.USERNAME, username)
+             viewModel.getAccountPrefs().observe(viewLifecycleOwner){
+                accountId = it.accountId
+                 viewModel.setAccount(username, email, password, accountId)
+            }
         }
     }
 

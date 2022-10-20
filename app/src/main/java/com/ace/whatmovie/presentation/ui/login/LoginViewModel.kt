@@ -9,7 +9,7 @@ import com.ace.whatmovie.data.repository.LocalRepository
 import com.ace.whatmovie.wrapper.Resource
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val repository: LocalRepository) : ViewModel(){
+class LoginViewModel(private val repository: LocalRepository) : ViewModel() {
 
     private var _getUserResult = MutableLiveData<Resource<AccountEntity>>()
     val getUser: LiveData<Resource<AccountEntity>> get() = _getUserResult
@@ -18,5 +18,21 @@ class LoginViewModel(private val repository: LocalRepository) : ViewModel(){
         viewModelScope.launch {
             _getUserResult.postValue(repository.getAccount(username))
         }
+    }
+
+    fun setAccount(username: String, email: String, password: String, accountId: Long) {
+        viewModelScope.launch {
+            repository.setAccount(username, email, password, accountId)
+        }
+    }
+
+    fun saveLoginStatus(loginStatus: Boolean) {
+        viewModelScope.launch {
+            repository.setLoginStatus(loginStatus)
+        }
+    }
+
+    fun getLoginStatus(): LiveData<Boolean> {
+        return repository.getLoginStatus()
     }
 }

@@ -42,4 +42,5 @@
     <string name="please_confirm_password">Please confirm password</string>
     <string name="password_mismatch">Check again, password mismatch!</string>
     <string name="account_created">Account Created!</string>
+    <string name="tv_edit_account">Edit Account</string>
 </resources>

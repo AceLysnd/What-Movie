@@ -1,7 +1,6 @@
 package com.ace.whatmovie.presentation.ui.home
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -17,8 +16,6 @@ import com.ace.whatmovie.di.ServiceLocator
 import com.ace.whatmovie.presentation.adapter.MoviesAdapter
 import com.ace.whatmovie.presentation.adapter.MoviesAdapterLarge
 import com.ace.whatmovie.presentation.ui.detail.*
-import com.ace.whatmovie.presentation.ui.login.LoginFragment
-import com.ace.whatmovie.presentation.ui.login.LoginFragment.Companion.USERNAME
 import com.ace.whatmovie.presentation.ui.profile.ProfileActivity
 import com.ace.whatmovie.utils.viewModelFactory
 
@@ -38,13 +35,9 @@ class HomeActivity : AppCompatActivity() {
         HomeActivityViewModel(ServiceLocator.provideServiceLocator(this))
     }
 
-    private lateinit var sharedPreferences: SharedPreferences
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
-        sharedPreferences = this.getSharedPreferences(LoginFragment.LOGIN_SHARED_PREF, MODE_PRIVATE)
 
         popularMovies = findViewById(R.id.rv_popular_movies)
         nowPlayingMovies = findViewById(R.id.rv_now_playing_movies)
@@ -58,11 +51,9 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setUsername() {
-        username.text = getUsername() + "!"
-    }
-
-    private fun getUsername(): String? {
-        return sharedPreferences.getString(USERNAME, "")
+        viewModel.getAccountPrefs().observe(this){
+            username.text = it.username
+        }
     }
 
     private fun getMovies() {
@@ -168,7 +159,6 @@ class HomeActivity : AppCompatActivity() {
 
     private var backButtonCount = 0
     override fun onBackPressed() {
-//        super.onBackPressed()
         if (backButtonCount < 1) {
             Toast.makeText(this, getString(R.string.press_back_again), Toast.LENGTH_SHORT).show()
             backButtonCount += 1
