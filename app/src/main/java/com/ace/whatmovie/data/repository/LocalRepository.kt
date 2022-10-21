@@ -21,16 +21,20 @@ interface LocalRepository {
 
     suspend fun setLoginStatus(loginStatus: Boolean)
 
+    suspend fun setProfilePicture(profilePicture: String)
+
     fun getAccountPrefs(): LiveData<Prefs>
 
     fun getLoginStatus(): LiveData<Boolean>
 
     fun getAccountId(): LiveData<Long>
+
+    fun getProfilePicture(): LiveData<String>
 }
 
 class LocalRepositoryImpl(
     private val accountDataSource: AccountDataSource,
-    private val prefs: AccountDataStoreManager
+    private val prefs: AccountDataStoreManager,
 ) : LocalRepository {
 
     override suspend fun getAccountById(id: Long): Resource<AccountEntity?> {
@@ -63,6 +67,9 @@ class LocalRepositoryImpl(
     override suspend fun setLoginStatus(loginStatus: Boolean){
         prefs.setLoginStatus(loginStatus)
     }
+    override suspend fun setProfilePicture(profilePicture: String) {
+        prefs.setProfilePicture(profilePicture)
+    }
 
     override fun getAccountPrefs(): LiveData<Prefs> {
         return prefs.getAccount().asLiveData()
@@ -74,6 +81,10 @@ class LocalRepositoryImpl(
 
     override fun getAccountId(): LiveData<Long> {
         return prefs.getAccountId().asLiveData()
+    }
+
+    override fun getProfilePicture(): LiveData<String> {
+        return prefs.getProfilePicture().asLiveData()
     }
 
 

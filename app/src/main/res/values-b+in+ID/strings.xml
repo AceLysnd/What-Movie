@@ -42,4 +42,6 @@
     <string name="password_mismatch">Cek lagi, password tidak cocok!</string>
     <string name="account_created">Akun dibuat!</string>
     <string name="fail_update_account">Gagal mengupdate akun!</string>
+    <string name="tv_edit_account">Edit Info Akun</string>
+    <string name="change_profile_picture">Ganti Foto Profil</string>
 </resources>

@@ -24,6 +24,11 @@ class AccountDataStoreManager(private val context: Context) {
             preferences[LOGGED_IN_STATUS] = loginStatus
         }
     }
+    suspend fun setProfilePicture(profilePicture: String) {
+        context.accountDataStore.edit { preferences ->
+            preferences[ACCOUNT_PROFILE_PICTURE] = profilePicture
+        }
+    }
 
     fun getAccount(): Flow<Prefs> {
         return context.accountDataStore.data.map { preferences ->
@@ -33,6 +38,7 @@ class AccountDataStoreManager(private val context: Context) {
                 preferences[ACCOUNT_EMAIL] ?: "",
                 preferences[ACCOUNT_PASSWORD] ?: "",
                 preferences[LOGGED_IN_STATUS] ?: false,
+                preferences[ACCOUNT_PROFILE_PICTURE] ?: ""
             )
         }
     }
@@ -49,6 +55,13 @@ class AccountDataStoreManager(private val context: Context) {
         }
     }
 
+    fun getProfilePicture(): Flow<String> {
+        return context.accountDataStore.data.map { preferences ->
+            preferences[ACCOUNT_PROFILE_PICTURE] ?: ""
+        }
+    }
+
+
     companion object {
         private const val DATASTORE_NAME = "account_prefs"
 
@@ -57,6 +70,8 @@ class AccountDataStoreManager(private val context: Context) {
         private val ACCOUNT_EMAIL = stringPreferencesKey("account_email")
 
         private val ACCOUNT_PASSWORD = stringPreferencesKey("account_password")
+
+        private val ACCOUNT_PROFILE_PICTURE = stringPreferencesKey("account_profile_picture")
 
         private val ACCOUNT_ID = longPreferencesKey("account_id")
 

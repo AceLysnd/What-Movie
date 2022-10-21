@@ -5,5 +5,6 @@ data class Prefs(
     val username: String,
     val email: String,
     val password: String,
-    val loginStatus: Boolean
+    val loginStatus: Boolean,
+    val profilePicture: String
 )
