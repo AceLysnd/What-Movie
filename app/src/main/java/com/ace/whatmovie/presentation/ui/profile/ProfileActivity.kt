@@ -9,14 +9,18 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Base64
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
+import androidx.lifecycle.Observer
+import androidx.work.WorkInfo
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.ace.whatmovie.R
@@ -26,8 +30,10 @@ import com.ace.whatmovie.databinding.ActivityProfileBinding
 import com.ace.whatmovie.di.ServiceLocator
 import com.ace.whatmovie.presentation.ui.MainActivity
 import com.ace.whatmovie.utils.viewModelFactory
+import com.ace.whatmovie.utils.workers.KEY_IMAGE_URI
 import java.io.ByteArrayOutputStream
 import java.io.File
+
 
 class ProfileActivity : AppCompatActivity() {
     private var _binding: ActivityProfileBinding? = null
@@ -46,6 +52,8 @@ class ProfileActivity : AppCompatActivity() {
 
         observeData()
         setOnclickListeners()
+
+        viewModel.outputWorkInfos.observe(this, workInfosObserver())
     }
 
     private fun observeData() {
@@ -53,10 +61,10 @@ class ProfileActivity : AppCompatActivity() {
             bindDataToForm(it)
         }
         viewModel.getProfilePicture().observe(this) {
-            if (it.isNullOrEmpty().not()){
+            if (it.isNullOrEmpty().not()) {
                 setProfilePicture(convertStringToBitMap(it))
             } else {
-                Toast.makeText(this,"No profile picture", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "No profile picture", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -127,14 +135,12 @@ class ProfileActivity : AppCompatActivity() {
             photoFile
         )
         cameraResult.launch(uri)
-
     }
 
     private val cameraResult =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { result ->
             if (result) {
                 handleCameraImage(uri)
-//                val imageUri = data.getData()
             }
         }
 
@@ -145,8 +151,31 @@ class ProfileActivity : AppCompatActivity() {
             target { result ->
                 val bitmap = (result as BitmapDrawable).bitmap
                 viewModel.setProfilePicture(convertBitMapToString(bitmap))
+                viewModel.applyBlur(getImageUri(bitmap))
             }
             transformations(RoundedCornersTransformation())
+        }
+    }
+
+    private fun workInfosObserver(): Observer<List<WorkInfo>> {
+        return Observer { listOfWorkInfo ->
+            if (listOfWorkInfo.isNullOrEmpty()) {
+                return@Observer
+            }
+
+            val workInfo = listOfWorkInfo[0]
+            if (workInfo.state.isFinished) {
+
+                val outputImageUri = workInfo.outputData.getString(KEY_IMAGE_URI)
+
+                if (!outputImageUri.isNullOrEmpty()) {
+                    viewModel.setOutputUri(outputImageUri)
+                }
+                binding.progressBar.visibility = View.GONE
+                Toast.makeText(this, "Profile Picture Saved", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.progressBar.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -170,11 +199,24 @@ class ProfileActivity : AppCompatActivity() {
                 target { result ->
                     val bitmap = (result as BitmapDrawable).bitmap
                     viewModel.setProfilePicture(convertBitMapToString(bitmap))
+                    viewModel.applyBlur(getImageUri(bitmap))
                 }
                 transformations(RoundedCornersTransformation())
             }
 
         }
+
+    private fun getImageUri(bitmap: Bitmap): Uri {
+        val bytes = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path: String = MediaStore.Images.Media.insertImage(
+            this.contentResolver,
+            bitmap,
+            "Initial Profile Picture",
+            null
+        )
+        return Uri.parse(path)
+    }
 
     private fun isGranted(
         profileActivity: ProfileActivity,

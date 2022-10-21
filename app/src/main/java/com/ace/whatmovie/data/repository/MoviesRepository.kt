@@ -4,7 +4,7 @@ import android.util.Log
 import com.ace.whatmovie.data.model.GetMoviesResponse
 import com.ace.whatmovie.data.model.Movie
 import com.ace.whatmovie.presentation.ui.home.HomeActivity.Companion.MOVIE_ID_INT
-import com.ace.whatmovie.services.MovieApiService
+import com.ace.whatmovie.data.services.MovieApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

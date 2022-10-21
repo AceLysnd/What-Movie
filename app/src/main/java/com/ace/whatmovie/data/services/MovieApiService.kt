@@ -1,4 +1,4 @@
-package com.ace.whatmovie.services
+package com.ace.whatmovie.data.services
 
 
 import com.ace.whatmovie.BuildConfig
