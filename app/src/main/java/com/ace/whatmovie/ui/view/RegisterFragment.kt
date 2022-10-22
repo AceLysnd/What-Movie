@@ -1,4 +1,4 @@
-package com.ace.whatmovie.presentation.ui.register
+package com.ace.whatmovie.ui.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import com.ace.whatmovie.R
 import com.ace.whatmovie.data.local.user.AccountEntity
 import com.ace.whatmovie.databinding.FragmentRegisterBinding
 import com.ace.whatmovie.di.ServiceLocator
+import com.ace.whatmovie.ui.viewmodel.RegisterViewModel
 import com.ace.whatmovie.utils.viewModelFactory
 
 class RegisterFragment : Fragment() {

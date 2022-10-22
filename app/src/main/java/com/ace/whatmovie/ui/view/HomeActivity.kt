@@ -1,4 +1,4 @@
-package com.ace.whatmovie.presentation.ui.home
+package com.ace.whatmovie.ui.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,13 +14,13 @@ import com.ace.whatmovie.R
 import com.ace.whatmovie.data.model.Movie
 import com.ace.whatmovie.data.repository.MoviesRepository
 import com.ace.whatmovie.di.ServiceLocator
-import com.ace.whatmovie.presentation.adapter.MoviesAdapter
-import com.ace.whatmovie.presentation.adapter.MoviesAdapterLarge
-import com.ace.whatmovie.presentation.ui.detail.*
-import com.ace.whatmovie.presentation.ui.profile.ProfileActivity
+import com.ace.whatmovie.ui.adapter.MoviesAdapter
+import com.ace.whatmovie.ui.adapter.MoviesAdapterLarge
+import com.ace.whatmovie.ui.viewmodel.HomeActivityViewModel
 import com.ace.whatmovie.utils.viewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var popularMovies: RecyclerView
@@ -31,9 +32,11 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var nowPlayingMoviesAdapter: MoviesAdapter
     private lateinit var upcomingMoviesAdapter: MoviesAdapterLarge
 
-    private val viewModel: HomeActivityViewModel by viewModelFactory {
-        HomeActivityViewModel(ServiceLocator.provideServiceLocator(this))
-    }
+    private val viewModel: HomeActivityViewModel by viewModels()
+
+//    private val viewModel: HomeActivityViewModel by viewModelFactory {
+//        HomeActivityViewModel(ServiceLocator.provideServiceLocator(this),)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,24 +54,40 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setUsername() {
-        viewModel.getAccountPrefs().observe(this){
-            username.text = it.username
-        }
+//        viewModel.getAccountPrefs().observe(this){
+//            username.text = it.username
+//        }
     }
 
     private fun getMovies() {
-        MoviesRepository.getPopularMovies(
-            onSuccess = ::fetchPopularMovies,
-            onError = ::onError
-        )
-        MoviesRepository.getNowPlayingMovies(
-            onSuccess = ::fetchNowPlayingMovies,
-            onError = ::onError
-        )
-        MoviesRepository.getUpcomingMovies(
-            onSuccess = ::fetchUpcomingMovies,
-            onError = ::onError
-        )
+        viewModel.getPopularMovies()
+        viewModel.getUpcomingMovies()
+        viewModel.getNowPlayingMovies()
+
+        viewModel.popularMovies.observe(this){
+            fetchPopularMovies(it.movies)
+        }
+
+        viewModel.nowPlayingMovies.observe(this){
+            fetchNowPlayingMovies(it.movies)
+        }
+
+        viewModel.upcomingMovies.observe(this){
+            fetchUpcomingMovies(it.movies)
+        }
+
+//        MoviesRepository.getPopularMovies(
+//            onSuccess = ::fetchPopularMovies,
+//            onError = ::onError
+//        )
+//        MoviesRepository.getNowPlayingMovies(
+//            onSuccess = ::fetchNowPlayingMovies,
+//            onError = ::onError
+//        )
+//        MoviesRepository.getUpcomingMovies(
+//            onSuccess = ::fetchUpcomingMovies,
+//            onError = ::onError
+//        )
     }
 
     private fun setLinearLayouts() {
@@ -132,6 +151,8 @@ class HomeActivity : AppCompatActivity() {
         intent.putExtra(MOVIE_RATING, movie.voteAverage)
         intent.putExtra(MOVIE_RELEASE_DATE, movie.releaseDate)
         intent.putExtra(MOVIE_OVERVIEW, movie.overview)
+
+        intent.putExtra(MOVIE_ID, movie.id)
 
         MOVIE_ID_INT = movie.id!!
         startActivity(intent)

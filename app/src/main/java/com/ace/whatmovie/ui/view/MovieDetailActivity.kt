@@ -1,19 +1,21 @@
-package com.ace.whatmovie.presentation.ui.detail
+package com.ace.whatmovie.ui.view
 
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.ace.whatmovie.R
 import com.ace.whatmovie.data.model.Movie
-import com.ace.whatmovie.data.repository.MoviesRepository
-import com.ace.whatmovie.presentation.adapter.MoviesAdapter
-import com.ace.whatmovie.presentation.ui.MainActivity.Companion.BACKDROP_URL
-import com.ace.whatmovie.presentation.ui.MainActivity.Companion.POSTER_URL
+import com.ace.whatmovie.ui.MainActivity.Companion.BACKDROP_URL
+import com.ace.whatmovie.ui.MainActivity.Companion.POSTER_URL
+import com.ace.whatmovie.ui.adapter.MoviesAdapter
+import com.ace.whatmovie.ui.viewmodel.MovieDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 const val MOVIE_BACKDROP = "extra_movie_backdrop"
 const val MOVIE_POSTER = "extra_movie_poster"
@@ -21,7 +23,9 @@ const val MOVIE_TITLE = "extra_movie_title"
 const val MOVIE_RATING = "extra_movie_rating"
 const val MOVIE_RELEASE_DATE = "extra_movie_release_date"
 const val MOVIE_OVERVIEW = "extra_movie_overview"
+const val MOVIE_ID = "movie_id"
 
+@AndroidEntryPoint
 class MovieDetailActivity : AppCompatActivity() {
     private lateinit var backdrop: ImageView
     private lateinit var poster: ImageView
@@ -33,6 +37,8 @@ class MovieDetailActivity : AppCompatActivity() {
     private lateinit var similarMovies: RecyclerView
 
     private lateinit var similarMoviesAdapter: MoviesAdapter
+
+    private val viewModel: MovieDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +57,7 @@ class MovieDetailActivity : AppCompatActivity() {
 
         if (extras != null) {
             getDetails(extras)
+
         } else {
             finish()
         }
@@ -61,10 +68,11 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun getMovies() {
-        MoviesRepository.getSimilarMovies(
-            onSuccess = ::fetchSimilarMovies,
-            onError = ::onError,
-        )
+        viewModel.getSimilarMovies()
+
+        viewModel.similarMovies.observe(this){
+            fetchSimilarMovies(it.movies)
+        }
     }
     private fun setLinearLayouts(){
         similarMovies.layoutManager = LinearLayoutManager(

@@ -6,6 +6,9 @@ import com.ace.whatmovie.data.local.user.*
 import com.ace.whatmovie.data.model.AccountDataStoreManager
 import com.ace.whatmovie.data.repository.LocalRepository
 import com.ace.whatmovie.data.repository.LocalRepositoryImpl
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 object ServiceLocator {
 

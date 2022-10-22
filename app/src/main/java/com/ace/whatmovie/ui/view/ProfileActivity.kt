@@ -1,4 +1,4 @@
-package com.ace.whatmovie.presentation.ui.profile
+package com.ace.whatmovie.ui.view
 
 import android.Manifest
 import android.content.Intent
@@ -28,13 +28,15 @@ import com.ace.whatmovie.data.local.user.AccountEntity
 import com.ace.whatmovie.data.model.Prefs
 import com.ace.whatmovie.databinding.ActivityProfileBinding
 import com.ace.whatmovie.di.ServiceLocator
-import com.ace.whatmovie.presentation.ui.MainActivity
+import com.ace.whatmovie.ui.MainActivity
+import com.ace.whatmovie.ui.viewmodel.ProfileViewModel
 import com.ace.whatmovie.utils.viewModelFactory
 import com.ace.whatmovie.utils.workers.KEY_IMAGE_URI
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 import java.io.File
 
-
+@AndroidEntryPoint
 class ProfileActivity : AppCompatActivity() {
     private var _binding: ActivityProfileBinding? = null
     private val binding get() = _binding!!

@@ -1,4 +1,4 @@
-package com.ace.whatmovie.presentation.ui.register
+package com.ace.whatmovie.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

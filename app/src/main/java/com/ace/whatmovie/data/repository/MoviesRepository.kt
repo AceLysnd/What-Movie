@@ -1,138 +1,144 @@
 package com.ace.whatmovie.data.repository
 
-import android.util.Log
-import com.ace.whatmovie.data.model.GetMoviesResponse
-import com.ace.whatmovie.data.model.Movie
-import com.ace.whatmovie.presentation.ui.home.HomeActivity.Companion.MOVIE_ID_INT
-import com.ace.whatmovie.data.services.MovieApiService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.ace.whatmovie.data.services.ApiHelper
+import com.ace.whatmovie.ui.view.HomeActivity.Companion.MOVIE_ID_INT
 
-object MoviesRepository {
 
-    private val api: MovieApiService by lazy {
-        MovieApiService.invoke()
-    }
+class MoviesRepository(private val apiHelper: ApiHelper){
 
-    fun getPopularMovies(
-        page: Int = 1,
-        onSuccess: (movies: MutableList<Movie>) -> Unit,
-        onError: () -> Unit
-    ) {
-        api.getPopularMovies(page = page)
-            .enqueue(object : Callback<GetMoviesResponse> {
-                override fun onResponse(
-                    call: Call<GetMoviesResponse>,
-                    response: Response<GetMoviesResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
+    suspend fun getPopularMovies() = apiHelper.getPopularMovies()
 
-                        if (responseBody != null) {
-                            onSuccess.invoke(responseBody.movies as MutableList<Movie>)
-                        } else {
-                            onError.invoke()
-                        }
-                    } else {
-                        onError.invoke()
-                    }
-                }
+    suspend fun getNowPlayingMovies() = apiHelper.getNowPlayingMovies()
 
-                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
-                    Log.e("Repository", "error getting movies", t)
-                }
-            })
-    }
+    suspend fun getUpcomingMovies() = apiHelper.getUpcomingMovies()
 
-    fun getNowPlayingMovies(
-        page: Int = 1,
-        onSuccess: (movies: MutableList<Movie>) -> Unit,
-        onError: () -> Unit
-    ) {
-        api.getNowPlayingMovies(page = page)
-            .enqueue(object : Callback<GetMoviesResponse> {
-                override fun onResponse(
-                    call: Call<GetMoviesResponse>,
-                    response: Response<GetMoviesResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
-
-                        if (responseBody != null) {
-                            onSuccess.invoke(responseBody.movies as MutableList<Movie>)
-                        } else {
-                            onError.invoke()
-                        }
-                    } else {
-                        onError.invoke()
-                    }
-                }
-
-                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
-                    Log.e("Repository", "error getting movies", t)
-                }
-            })
-    }
-
-    fun getUpcomingMovies(
-        page: Int = 1,
-        onSuccess: (movies: MutableList<Movie>) -> Unit,
-        onError: () -> Unit
-    ) {
-        api.getUpcomingMovies(page = page)
-            .enqueue(object : Callback<GetMoviesResponse> {
-                override fun onResponse(
-                    call: Call<GetMoviesResponse>,
-                    response: Response<GetMoviesResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
-
-                        if (responseBody != null) {
-                            onSuccess.invoke(responseBody.movies as MutableList<Movie>)
-                        } else {
-                            onError.invoke()
-                        }
-                    } else {
-                        onError.invoke()
-                    }
-                }
-
-                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
-                    Log.e("Repository", "error getting movies", t)
-                }
-            })
-    }
-
-    fun getSimilarMovies(
-        page: Int = 1,
-        movieId: Int = MOVIE_ID_INT,
-        onSuccess: (movies: MutableList<Movie>) -> Unit,
-        onError: () -> Unit,
-    ) {
-        api.getSimilarMovies(page = page, movieId = movieId)
-            .enqueue(object : Callback<GetMoviesResponse> {
-                override fun onResponse(
-                    call: Call<GetMoviesResponse>,
-                    response: Response<GetMoviesResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        val responseBody = response.body()
-
-                        if (responseBody != null) {
-                            onSuccess.invoke(responseBody.movies as MutableList<Movie>)
-                        } else {
-                            onError.invoke()
-                        }
-                    } else {
-                        onError.invoke()
-                    }
-                }
-
-                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
-                    Log.e("Repository", "error getting movies", t)
-                }
-            })
-    }
+    suspend fun getSimilarMovies() = apiHelper.getSimilarMovies(1, MOVIE_ID_INT)
 }
+
+//object MoviesRepository {
+//
+//    private val api: MovieApiService by lazy {
+//        MovieApiService.invoke()
+//    }
+//
+//    fun getPopularMovies(
+//        page: Int = 1,
+//        onSuccess: (movies: MutableList<Movie>) -> Unit,
+//        onError: () -> Unit
+//    ) {
+//        api.getPopularMovies(page = page)
+//            .enqueue(object : Callback<GetMoviesResponse> {
+//                override fun onResponse(
+//                    call: Call<GetMoviesResponse>,
+//                    response: Response<GetMoviesResponse>
+//                ) {
+//                    if (response.isSuccessful) {
+//                        val responseBody = response.body()
+//
+//                        if (responseBody != null) {
+//                            onSuccess.invoke(responseBody.movies as MutableList<Movie>)
+//                        } else {
+//                            onError.invoke()
+//                        }
+//                    } else {
+//                        onError.invoke()
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
+//                    Log.e("Repository", "error getting movies", t)
+//                }
+//            })
+//    }
+//
+//    fun getNowPlayingMovies(
+//        page: Int = 1,
+//        onSuccess: (movies: MutableList<Movie>) -> Unit,
+//        onError: () -> Unit
+//    ) {
+//        api.getNowPlayingMovies(page = page)
+//            .enqueue(object : Callback<GetMoviesResponse> {
+//                override fun onResponse(
+//                    call: Call<GetMoviesResponse>,
+//                    response: Response<GetMoviesResponse>
+//                ) {
+//                    if (response.isSuccessful) {
+//                        val responseBody = response.body()
+//
+//                        if (responseBody != null) {
+//                            onSuccess.invoke(responseBody.movies as MutableList<Movie>)
+//                        } else {
+//                            onError.invoke()
+//                        }
+//                    } else {
+//                        onError.invoke()
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
+//                    Log.e("Repository", "error getting movies", t)
+//                }
+//            })
+//    }
+//
+//    fun getUpcomingMovies(
+//        page: Int = 1,
+//        onSuccess: (movies: MutableList<Movie>) -> Unit,
+//        onError: () -> Unit
+//    ) {
+//        api.getUpcomingMovies(page = page)
+//            .enqueue(object : Callback<GetMoviesResponse> {
+//                override fun onResponse(
+//                    call: Call<GetMoviesResponse>,
+//                    response: Response<GetMoviesResponse>
+//                ) {
+//                    if (response.isSuccessful) {
+//                        val responseBody = response.body()
+//
+//                        if (responseBody != null) {
+//                            onSuccess.invoke(responseBody.movies as MutableList<Movie>)
+//                        } else {
+//                            onError.invoke()
+//                        }
+//                    } else {
+//                        onError.invoke()
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
+//                    Log.e("Repository", "error getting movies", t)
+//                }
+//            })
+//    }
+//
+//    fun getSimilarMovies(
+//        page: Int = 1,
+//        movieId: Int = MOVIE_ID_INT,
+//        onSuccess: (movies: MutableList<Movie>) -> Unit,
+//        onError: () -> Unit,
+//    ) {
+//        api.getSimilarMovies(page = page, movieId = movieId)
+//            .enqueue(object : Callback<GetMoviesResponse> {
+//                override fun onResponse(
+//                    call: Call<GetMoviesResponse>,
+//                    response: Response<GetMoviesResponse>
+//                ) {
+//                    if (response.isSuccessful) {
+//                        val responseBody = response.body()
+//
+//                        if (responseBody != null) {
+//                            onSuccess.invoke(responseBody.movies as MutableList<Movie>)
+//                        } else {
+//                            onError.invoke()
+//                        }
+//                    } else {
+//                        onError.invoke()
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
+//                    Log.e("Repository", "error getting movies", t)
+//                }
+//            })
+//    }
+//}

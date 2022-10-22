@@ -1,4 +1,4 @@
-package com.ace.whatmovie.presentation.ui.login
+package com.ace.whatmovie.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

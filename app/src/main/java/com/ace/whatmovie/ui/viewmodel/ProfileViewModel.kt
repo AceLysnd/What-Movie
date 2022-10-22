@@ -1,4 +1,4 @@
-package com.ace.whatmovie.presentation.ui.profile
+package com.ace.whatmovie.ui.viewmodel
 
 import android.app.Application
 import android.net.Uri

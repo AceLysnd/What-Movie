@@ -1,4 +1,4 @@
-package com.ace.whatmovie.presentation.ui
+package com.ace.whatmovie.ui
 
 import android.os.Bundle
 import android.widget.Toast
@@ -7,7 +7,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.ace.whatmovie.R
 import com.ace.whatmovie.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!

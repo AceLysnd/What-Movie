@@ -15,48 +15,48 @@ import java.util.concurrent.TimeUnit
 interface MovieApiService {
 
     @GET("movie/popular")
-    fun getPopularMovies(
+    suspend fun getPopularMovies(
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("page") page: Int
-    ): Call<GetMoviesResponse>
+    ): GetMoviesResponse
 
     @GET("movie/now_playing")
-    fun getNowPlayingMovies(
+    suspend fun getNowPlayingMovies(
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("page") page: Int
-    ): Call<GetMoviesResponse>
+    ): GetMoviesResponse
 
     @GET("movie/upcoming")
-    fun getUpcomingMovies(
+    suspend fun getUpcomingMovies(
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("page") page: Int
-    ): Call<GetMoviesResponse>
+    ): GetMoviesResponse
 
     @GET("movie/{movie_id}/similar")
-    fun getSimilarMovies(
+    suspend fun getSimilarMovies(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("page") page: Int
-    ): Call<GetMoviesResponse>
+    ): GetMoviesResponse
 
-    companion object {
-
-        @JvmStatic
-        operator fun invoke(): MovieApiService {
-            val okHttpClient = OkHttpClient.Builder()
-                .connectTimeout(120, TimeUnit.SECONDS)
-                .readTimeout(120, TimeUnit.SECONDS)
-                .build()
-
-            return Retrofit.Builder()
-                .baseUrl(BuildConfig.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
-                .build()
-                .create(MovieApiService::class.java)
-        }
-
-    }
+//    companion object {
+//
+//        @JvmStatic
+//        operator fun invoke(): MovieApiService {
+//            val okHttpClient = OkHttpClient.Builder()
+//                .connectTimeout(120, TimeUnit.SECONDS)
+//                .readTimeout(120, TimeUnit.SECONDS)
+//                .build()
+//
+//            return Retrofit.Builder()
+//                .baseUrl(BuildConfig.BASE_URL)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .client(okHttpClient)
+//                .build()
+//                .create(MovieApiService::class.java)
+//        }
+//
+//    }
 
 
 }

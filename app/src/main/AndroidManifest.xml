@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -30,16 +31,16 @@
         </provider>
 
         <activity
-            android:name=".presentation.ui.profile.ProfileActivity"
+            android:name="com.ace.whatmovie.ui.view.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.detail.MovieDetailActivity"
+            android:name="com.ace.whatmovie.ui.view.MovieDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.home.HomeActivity"
+            android:name="com.ace.whatmovie.ui.view.HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".presentation.ui.MainActivity"
+            android:name="com.ace.whatmovie.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

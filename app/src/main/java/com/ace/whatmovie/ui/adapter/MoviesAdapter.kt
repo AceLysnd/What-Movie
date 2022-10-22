@@ -1,22 +1,22 @@
-package com.ace.whatmovie.presentation.adapter
+package com.ace.whatmovie.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.ace.whatmovie.data.model.Movie
-import com.ace.whatmovie.databinding.ItemMovieLargeBinding
-import com.ace.whatmovie.presentation.ui.MainActivity.Companion.BACKDROP_URL
+import com.ace.whatmovie.databinding.ItemMovieBinding
+import com.ace.whatmovie.ui.MainActivity.Companion.POSTER_URL
 
-class MoviesAdapterLarge(
+
+class MoviesAdapter(
     private var movies: MutableList<Movie>,
     private val onMovieClick: (movie: Movie) -> Unit
-) : RecyclerView.Adapter<MoviesAdapterLarge.MovieViewHolder>() {
+) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val binding = ItemMovieLargeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(binding)
     }
 
@@ -32,21 +32,22 @@ class MoviesAdapterLarge(
         notifyDataSetChanged()
     }
 
+    fun addMovies(movies: MutableList<Movie>) {
+        this.movies.clear()
+        this.movies.addAll(movies)
+        notifyDataSetChanged()
+    }
 
-    inner class MovieViewHolder(private val binding: ItemMovieLargeBinding) :
+    inner class MovieViewHolder(private val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val poster: ImageView = binding.itemMoviePosterLarge
-        private val title: TextView = binding.movieTitle
+        private val poster: ImageView = binding.itemMoviePoster
 
         fun bind(movie: Movie) {
-            title.text = movie.title
-            poster.load("$BACKDROP_URL${movie.backdropPath}") {
+            poster.load("$POSTER_URL${movie.posterPath}") {
                 crossfade(true)
             }
 
             itemView.setOnClickListener { onMovieClick.invoke(movie) }
         }
     }
-
-
 }
