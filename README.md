@@ -1,5 +1,19 @@
 # What-Movie
 
+Note:
+1. Di change profile picture langsung dilakukan operasi workmanager.
+2. Hasil workmanager disimpan di galeri, ada 2 file, sebelum blur dan sesudah blur.
+3. Foto profil masih disimpan di Datastore, belum disimpan di Room database.
+
+Challenge Binar Academy Chapter 6
+
+Kriteria :
+1. Menggunakan WorkManager untuk blur foto profil.
+2. Menerapkan design pattern MVVM.
+3. Melakukan penyimpanan data lokal dengan DataStore.
+4. Dapat menambahkan foto profil.
+5. Menerapkan DI Hilt.
+
 Challenge Binar Academy Chapter 5
 
 Kriteria :
@@ -10,8 +24,6 @@ Kriteria :
 5. Styling : Format teks untuk headline, headline desc, username, ada di styles.xml
 
 -------------------------------------------------------------------------------------
-- Sudah menggunakan scrollview
-- Memperbaiki arsitektur untuk API Service dan Retrofit
 
 Known Bugs :
-None
+1. Saat pertama kali login, tombol log out di profil harus dipencet lagi 2 kali untuk log out.
