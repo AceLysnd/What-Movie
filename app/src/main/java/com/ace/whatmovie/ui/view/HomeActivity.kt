@@ -12,12 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ace.whatmovie.R
 import com.ace.whatmovie.data.model.Movie
-import com.ace.whatmovie.data.repository.MoviesRepository
-import com.ace.whatmovie.di.ServiceLocator
 import com.ace.whatmovie.ui.adapter.MoviesAdapter
 import com.ace.whatmovie.ui.adapter.MoviesAdapterLarge
 import com.ace.whatmovie.ui.viewmodel.HomeActivityViewModel
-import com.ace.whatmovie.utils.viewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,10 +30,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var upcomingMoviesAdapter: MoviesAdapterLarge
 
     private val viewModel: HomeActivityViewModel by viewModels()
-
-//    private val viewModel: HomeActivityViewModel by viewModelFactory {
-//        HomeActivityViewModel(ServiceLocator.provideServiceLocator(this),)
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +47,9 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setUsername() {
-//        viewModel.getAccountPrefs().observe(this){
-//            username.text = it.username
-//        }
+        viewModel.getAccountPrefs().observe(this){
+            username.text = it.username
+        }
     }
 
     private fun getMovies() {
@@ -75,19 +68,6 @@ class HomeActivity : AppCompatActivity() {
         viewModel.upcomingMovies.observe(this){
             fetchUpcomingMovies(it.movies)
         }
-
-//        MoviesRepository.getPopularMovies(
-//            onSuccess = ::fetchPopularMovies,
-//            onError = ::onError
-//        )
-//        MoviesRepository.getNowPlayingMovies(
-//            onSuccess = ::fetchNowPlayingMovies,
-//            onError = ::onError
-//        )
-//        MoviesRepository.getUpcomingMovies(
-//            onSuccess = ::fetchUpcomingMovies,
-//            onError = ::onError
-//        )
     }
 
     private fun setLinearLayouts() {
@@ -131,10 +111,6 @@ class HomeActivity : AppCompatActivity() {
 
     private fun fetchUpcomingMovies(movies: MutableList<Movie>) {
         upcomingMoviesAdapter.setMovies(movies)
-    }
-
-    private fun onError() {
-        Toast.makeText(this, getString(R.string.error_getting_movies), Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

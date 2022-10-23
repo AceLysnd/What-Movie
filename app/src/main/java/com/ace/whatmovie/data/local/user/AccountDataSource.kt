@@ -1,32 +1,41 @@
 package com.ace.whatmovie.data.local.user
 
-interface AccountDataSource {
+import javax.inject.Inject
 
-    suspend fun getAccountById(id: Long): AccountEntity?
+class AccountDataSource @Inject constructor(private val accountDao: AccountDao) {
 
-    suspend fun registerAccount(account: AccountEntity): Long
-
-    suspend fun updateAccount(account: AccountEntity): Int
-
-    suspend fun getUser(username: String) : AccountEntity
-
-
-}
-
-class AccountDataSourceImpl(private val accountDao: AccountDao): AccountDataSource {
-    override suspend fun getAccountById(id: Long): AccountEntity? {
+    suspend fun getAccountById(id: Long): AccountEntity? {
         return accountDao.getAccountById(id)
     }
 
-    override suspend fun registerAccount(account: AccountEntity): Long {
+    suspend fun registerAccount(account: AccountEntity): Long{
         return accountDao.registerAccount(account)
     }
 
-    override suspend fun updateAccount(account: AccountEntity): Int {
+    suspend fun updateAccount(account: AccountEntity): Int {
         return accountDao.updateAccount(account)
     }
 
-    override suspend fun getUser(username: String): AccountEntity {
+    suspend fun getUser(username: String) : AccountEntity {
         return accountDao.getUser(username)
     }
+
 }
+
+//class AccountDataSourceImpl: AccountDataSource {
+//    override suspend fun getAccountById(id: Long): AccountEntity? {
+//        return accountDao.getAccountById(id)
+//    }
+//
+//    override suspend fun registerAccount(account: AccountEntity): Long {
+//        return accountDao.registerAccount(account)
+//    }
+//
+//    override suspend fun updateAccount(account: AccountEntity): Int {
+//        return accountDao.updateAccount(account)
+//    }
+//
+//    override suspend fun getUser(username: String): AccountEntity {
+//        return accountDao.getUser(username)
+//    }
+//}

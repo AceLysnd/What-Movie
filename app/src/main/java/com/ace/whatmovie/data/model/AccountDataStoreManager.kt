@@ -6,10 +6,12 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import dagger.hilt.android.qualifiers.ActivityContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class AccountDataStoreManager(private val context: Context) {
+class AccountDataStoreManager @Inject constructor(@ActivityContext private val context: Context) {
 
     suspend fun setAccount(username: String, email: String, password: String, accountId: Long) {
         context.accountDataStore.edit { preferences ->

@@ -5,11 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ace.whatmovie.data.model.GetMoviesResponse
-import com.ace.whatmovie.data.model.Movie
 import com.ace.whatmovie.data.model.Prefs
 import com.ace.whatmovie.data.repository.LocalRepository
 import com.ace.whatmovie.data.repository.MoviesRepository
-import com.ace.whatmovie.wrapper.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeActivityViewModel @Inject constructor(
     private val moviesRepository: MoviesRepository,
-//    private val repository: LocalRepository
+    private val repository: LocalRepository
 ) : ViewModel() {
 
     val _popularMovies = MutableLiveData<GetMoviesResponse>()
@@ -50,7 +48,7 @@ class HomeActivityViewModel @Inject constructor(
         }
     }
 
-//    fun getAccountPrefs(): LiveData<Prefs> {
-//        return repository.getAccountPrefs()
-//    }
+    fun getAccountPrefs(): LiveData<Prefs> {
+        return repository.getAccountPrefs()
+    }
 }

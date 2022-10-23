@@ -11,12 +11,14 @@ import com.ace.whatmovie.data.local.user.AccountEntity
 import com.ace.whatmovie.data.model.Prefs
 import com.ace.whatmovie.data.repository.LocalRepository
 import com.ace.whatmovie.utils.workers.*
-import com.ace.whatmovie.wrapper.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProfileViewModel (private val repository: LocalRepository, application: Application) : ViewModel() {
+@HiltViewModel
+class ProfileViewModel @Inject constructor(private val repository: LocalRepository, application: Application) : ViewModel() {
 
-    val updateResult = MutableLiveData<Resource<Number>>()
+    val updateResult = MutableLiveData<Int>()
 
     internal var outputUri: Uri? = null
 

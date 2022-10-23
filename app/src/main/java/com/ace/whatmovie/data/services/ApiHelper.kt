@@ -24,7 +24,6 @@ class ApiHelper(private val api: MovieApiService) {
     suspend fun getSimilarMovies(
         page: Int = 1,
         movieId: Int
-//        = HomeActivity.MOVIE_ID_INT
     ) = api.getSimilarMovies(page = page, movieId = movieId)
 
 }

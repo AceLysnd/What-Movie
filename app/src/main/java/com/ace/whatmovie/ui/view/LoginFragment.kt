@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ace.whatmovie.R
 import com.ace.whatmovie.data.local.user.AccountEntity
 import com.ace.whatmovie.databinding.FragmentLoginBinding
-import com.ace.whatmovie.di.ServiceLocator
 import com.ace.whatmovie.ui.viewmodel.LoginViewModel
-import com.ace.whatmovie.utils.viewModelFactory
-import com.ace.whatmovie.wrapper.Resource
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
@@ -23,9 +23,7 @@ class LoginFragment : Fragment() {
 
     var username by Delegates.notNull<Int>()
 
-    private val viewModel: LoginViewModel by viewModelFactory {
-        LoginViewModel(ServiceLocator.provideServiceLocator(requireContext()))
-    }
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,16 +60,7 @@ class LoginFragment : Fragment() {
             viewModel.getUser(username)
 
             viewModel.getUser.observe(viewLifecycleOwner) {
-                when (it) {
-                    is Resource.Success -> checkAccount(it.payload)
-                    is Resource.Error ->
-                        Toast.makeText(
-                            requireContext(),
-                            getString(R.string.error_getting_data),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    else -> {}
-                }
+                checkAccount(it)
             }
         }
     }
@@ -99,7 +88,7 @@ class LoginFragment : Fragment() {
 
             val loginStatus = username == account.username && password == account.password
             if (loginStatus) {
-                goToHome()
+                findNavController().navigate(R.id.action_loginFragment_self)
             } else {
                 Toast.makeText(
                     context,

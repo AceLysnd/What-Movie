@@ -6,13 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ace.whatmovie.data.local.user.AccountEntity
 import com.ace.whatmovie.data.repository.LocalRepository
-import com.ace.whatmovie.wrapper.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(private val repository: LocalRepository) : ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(private val repository: LocalRepository) : ViewModel() {
 
-    private var _getUserResult = MutableLiveData<Resource<AccountEntity>>()
-    val getUser: LiveData<Resource<AccountEntity>> get() = _getUserResult
+    private var _getUserResult = MutableLiveData<AccountEntity>()
+    val getUser: LiveData<AccountEntity> get() = _getUserResult
 
     fun getUser(username: String) {
         viewModelScope.launch {

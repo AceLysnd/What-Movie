@@ -38,25 +38,4 @@ interface MovieApiService {
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("page") page: Int
     ): GetMoviesResponse
-
-//    companion object {
-//
-//        @JvmStatic
-//        operator fun invoke(): MovieApiService {
-//            val okHttpClient = OkHttpClient.Builder()
-//                .connectTimeout(120, TimeUnit.SECONDS)
-//                .readTimeout(120, TimeUnit.SECONDS)
-//                .build()
-//
-//            return Retrofit.Builder()
-//                .baseUrl(BuildConfig.BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .client(okHttpClient)
-//                .build()
-//                .create(MovieApiService::class.java)
-//        }
-//
-//    }
-
-
 }

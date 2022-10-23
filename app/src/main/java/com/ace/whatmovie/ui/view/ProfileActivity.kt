@@ -15,6 +15,7 @@ import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -27,10 +28,8 @@ import com.ace.whatmovie.R
 import com.ace.whatmovie.data.local.user.AccountEntity
 import com.ace.whatmovie.data.model.Prefs
 import com.ace.whatmovie.databinding.ActivityProfileBinding
-import com.ace.whatmovie.di.ServiceLocator
 import com.ace.whatmovie.ui.MainActivity
 import com.ace.whatmovie.ui.viewmodel.ProfileViewModel
-import com.ace.whatmovie.utils.viewModelFactory
 import com.ace.whatmovie.utils.workers.KEY_IMAGE_URI
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
@@ -41,9 +40,7 @@ class ProfileActivity : AppCompatActivity() {
     private var _binding: ActivityProfileBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ProfileViewModel by viewModelFactory {
-        ProfileViewModel(ServiceLocator.provideServiceLocator(this), application)
-    }
+    private val viewModel: ProfileViewModel by viewModels()
 
     private lateinit var uri: Uri
 
@@ -174,7 +171,6 @@ class ProfileActivity : AppCompatActivity() {
                     viewModel.setOutputUri(outputImageUri)
                 }
                 binding.progressBar.visibility = View.GONE
-                Toast.makeText(this, "Profile Picture Saved", Toast.LENGTH_SHORT).show()
             } else {
                 binding.progressBar.visibility = View.VISIBLE
             }

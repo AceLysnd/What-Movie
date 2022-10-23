@@ -6,11 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.ace.whatmovie.data.local.user.AccountEntity
 import com.ace.whatmovie.data.repository.LocalRepository
 import com.ace.whatmovie.wrapper.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RegisterViewModel(private val repository: LocalRepository) : ViewModel() {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(private val repository: LocalRepository) : ViewModel() {
 
-    val detailDataResult = MutableLiveData<Resource<AccountEntity?>>()
+    val detailDataResult = MutableLiveData<AccountEntity>()
     val updateResult = MutableLiveData<Resource<Number>>()
 
     fun getAccountById(id: Long) {
@@ -22,11 +25,6 @@ class RegisterViewModel(private val repository: LocalRepository) : ViewModel() {
     fun registerUser(account: AccountEntity) {
         viewModelScope.launch {
             repository.createAccount(account)
-        }
-    }
-    fun updateUser(account: AccountEntity) {
-        viewModelScope.launch {
-            updateResult.postValue(repository.updateAccount(account))
         }
     }
 }

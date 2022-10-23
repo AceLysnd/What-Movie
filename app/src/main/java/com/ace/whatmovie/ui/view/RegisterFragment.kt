@@ -6,21 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ace.whatmovie.R
 import com.ace.whatmovie.data.local.user.AccountEntity
 import com.ace.whatmovie.databinding.FragmentRegisterBinding
-import com.ace.whatmovie.di.ServiceLocator
 import com.ace.whatmovie.ui.viewmodel.RegisterViewModel
-import com.ace.whatmovie.utils.viewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: RegisterViewModel by viewModelFactory {
-        RegisterViewModel(ServiceLocator.provideServiceLocator(requireContext()))
-    }
+    private val viewModel: RegisterViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

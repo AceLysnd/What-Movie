@@ -47,6 +47,4 @@ class MoviesAdapterLarge(
             itemView.setOnClickListener { onMovieClick.invoke(movie) }
         }
     }
-
-
 }
