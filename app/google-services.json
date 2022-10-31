@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "525026947860",
+    "project_id": "what-movie-8b3e4",
+    "storage_bucket": "what-movie-8b3e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525026947860:android:6c444fdc3648e3841a8801",
+        "android_client_info": {
+          "package_name": "com.ace.whatmovie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525026947860-beerfd72e3i15oduhpkcevpt5l1p5f7n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAz5E-EBmsFKkTLfFEtRSOqnabYZiakPU4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525026947860-beerfd72e3i15oduhpkcevpt5l1p5f7n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
