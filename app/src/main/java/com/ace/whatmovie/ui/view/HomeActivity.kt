@@ -15,6 +15,9 @@ import com.ace.whatmovie.data.model.Movie
 import com.ace.whatmovie.ui.adapter.MoviesAdapter
 import com.ace.whatmovie.ui.adapter.MoviesAdapterLarge
 import com.ace.whatmovie.ui.viewmodel.HomeActivityViewModel
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,6 +28,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var upcomingMovies: RecyclerView
     private lateinit var username: TextView
 
+    private lateinit var analytics: FirebaseAnalytics
+
     private lateinit var popularMoviesAdapter: MoviesAdapter
     private lateinit var nowPlayingMoviesAdapter: MoviesAdapter
     private lateinit var upcomingMoviesAdapter: MoviesAdapterLarge
@@ -34,6 +39,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        analytics = Firebase.analytics
 
         popularMovies = findViewById(R.id.rv_popular_movies)
         nowPlayingMovies = findViewById(R.id.rv_now_playing_movies)

@@ -1,6 +1,9 @@
 package com.ace.whatmovie.ui.view
 
+import android.content.ContentValues.TAG
+import android.content.IntentSender
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +15,12 @@ import com.ace.whatmovie.R
 import com.ace.whatmovie.data.local.user.AccountEntity
 import com.ace.whatmovie.databinding.FragmentLoginBinding
 import com.ace.whatmovie.ui.viewmodel.LoginViewModel
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.properties.Delegates
 
@@ -24,6 +33,10 @@ class LoginFragment : Fragment() {
     var username by Delegates.notNull<Int>()
 
     private val viewModel: LoginViewModel by viewModels()
+
+    private lateinit var oneTapClient: SignInClient
+    private lateinit var signInRequest: BeginSignInRequest
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +60,7 @@ class LoginFragment : Fragment() {
         binding.tvGotoRegister.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
+        binding.btnLoginGoogle.setOnClickListener{ googleAuth() }
     }
 
 
@@ -88,7 +102,7 @@ class LoginFragment : Fragment() {
 
             val loginStatus = username == account.username && password == account.password
             if (loginStatus) {
-                findNavController().navigate(R.id.action_loginFragment_self)
+//                findNavController().navigate(R.id.action_loginFragment_self)
             } else {
                 Toast.makeText(
                     context,
@@ -125,4 +139,42 @@ class LoginFragment : Fragment() {
             }
         }
     }
+
+    private fun googleAuth() {
+        auth = Firebase.auth
+        oneTapClient = Identity.getSignInClient(requireActivity())
+        signInRequest = BeginSignInRequest.builder()
+            .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
+                .setSupported(true)
+                .build())
+            .setGoogleIdTokenRequestOptions(
+                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                    .setSupported(true)
+                    // Your server's client ID, not your Android client ID.
+                    .setServerClientId("525026947860-fsga2t9p3llllstiaohgbhkca0pq36e8.apps.googleusercontent.com")
+                    // Only show accounts previously used to sign in.
+                    .setFilterByAuthorizedAccounts(true)
+                    .build())
+            // Automatically sign in when exactly one credential is retrieved.
+            .setAutoSelectEnabled(true)
+            .build()
+
+        oneTapClient.beginSignIn(signInRequest)
+            .addOnSuccessListener(requireActivity()) { result ->
+                try {
+                    val REQ_ONE_TAP = 200
+                    startIntentSenderForResult(
+                        result.pendingIntent.intentSender, REQ_ONE_TAP,
+                        null, 0, 0, 0, null)
+                } catch (e: IntentSender.SendIntentException) {
+                    Log.e(TAG, "Couldn't start One Tap UI: ${e.localizedMessage}")
+                }
+            }
+            .addOnFailureListener(requireActivity()) { e ->
+                // No saved credentials found. Launch the One Tap sign-up flow, or
+                // do nothing and continue presenting the signed-out UI.
+                Log.d(TAG, e.localizedMessage)
+            }
+    }
+
 }

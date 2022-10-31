@@ -89,6 +89,8 @@ class ProfileActivity : AppCompatActivity() {
         binding.btnLogOut.setOnClickListener {
             viewModel.saveLoginStatus(false)
             val intent = Intent(this, MainActivity::class.java)
+//            val home = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
             startActivity(intent)
         }
 
