@@ -22,6 +22,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
     }
 
     buildTypes {
@@ -46,12 +47,24 @@ android {
     def keyProperties = new Properties()
     keyProperties.load(new FileInputStream(keyPropertiesFile))
 
-    flavorDimensions 'default'
+    flavorDimensions 'version'
     productFlavors {
         production {
-            dimension = 'default'
+            dimension = 'version'
             buildConfigField("String", "BASE_URL", "\"${keyProperties.getProperty("BASE_URL")}\"")
             buildConfigField("String", "API_KEY", "\"${keyProperties.getProperty("API_KEY")}\"")
+        }
+        free {
+            dimension = 'version'
+            buildConfigField("String", "BASE_URL", "\"${keyProperties.getProperty("BASE_URL")}\"")
+            buildConfigField("String", "API_KEY", "\"${keyProperties.getProperty("API_KEY")}\"")
+            manifestPlaceholders = [appLabel: "WhatMovie Free"]
+        }
+        pro {
+            dimension = 'version'
+            buildConfigField("String", "BASE_URL", "\"${keyProperties.getProperty("BASE_URL")}\"")
+            buildConfigField("String", "API_KEY", "\"${keyProperties.getProperty("API_KEY")}\"")
+            manifestPlaceholders = [appLabel: "WhatMovie Pro"]
         }
     }
 }
