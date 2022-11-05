@@ -60,7 +60,11 @@ class LoginFragment : Fragment() {
         binding.tvGotoRegister.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
-        binding.btnLoginGoogle.setOnClickListener{ googleAuth() }
+        binding.btnLoginGoogle.setOnClickListener{ bugButton() }
+    }
+
+    private fun bugButton(){
+        System.out.println(2/0)
     }
 
 
@@ -79,7 +83,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun validateInput(): Boolean {
+    fun validateInput(): Boolean {
         var isValid = true
         val username = binding.etUsername.text.toString()
         val password = binding.etPassword.text.toString()
@@ -95,7 +99,7 @@ class LoginFragment : Fragment() {
         return isValid
     }
 
-    private fun checkAccount(account: AccountEntity?) {
+    fun checkAccount(account: AccountEntity?) {
         account?.let {
             val username = binding.etUsername.text.toString()
             val password = binding.etPassword.text.toString()
@@ -120,7 +124,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun saveLoginInfo(
+    fun saveLoginInfo(
         username: String,
         email: String,
         password: String,

@@ -59,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun getMovies() {
+    fun getMovies() {
         viewModel.getPopularMovies()
         viewModel.getUpcomingMovies()
         viewModel.getNowPlayingMovies()
