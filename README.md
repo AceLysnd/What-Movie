@@ -4,6 +4,7 @@ Note:
 1. Di change profile picture langsung dilakukan operasi workmanager.
 2. Hasil workmanager disimpan di galeri, ada 2 file, sebelum blur dan sesudah blur.
 3. Foto profil masih disimpan di Datastore, belum disimpan di Room database.
+4. !!! Button login google adalah button bug untuk crashlytics !!!
 
 -------------------------------------------------------------------------------------
 
