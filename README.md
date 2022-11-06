@@ -5,6 +5,8 @@ Note:
 2. Hasil workmanager disimpan di galeri, ada 2 file, sebelum blur dan sesudah blur.
 3. Foto profil masih disimpan di Datastore, belum disimpan di Room database.
 
+-------------------------------------------------------------------------------------
+
 Challenge Binar Academy Chapter 7
 
 Kriteria :
@@ -12,6 +14,8 @@ Kriteria :
 2. Analisa Profiler
 3. Unit testing : AppDatabaseTest, MoviesRepositoryTest, HomeActivityViewModelTest, LoginViewModelTest, RegisterViewModelTest
 4. Build Flavors : Production, Free, Pro (Berbeda nama + logo saja)
+
+-------------------------------------------------------------------------------------
 
 Challenge Binar Academy Chapter 6
 
@@ -21,6 +25,8 @@ Kriteria :
 3. Melakukan penyimpanan data lokal dengan DataStore.
 4. Dapat menambahkan foto profil.
 5. Menerapkan DI Hilt.
+
+-------------------------------------------------------------------------------------
 
 Challenge Binar Academy Chapter 5
 
