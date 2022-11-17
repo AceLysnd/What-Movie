@@ -1,5 +1,6 @@
 package com.ace.whatmovie.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private var backButtonCount = 0
+    @SuppressLint("all")
     override fun onBackPressed() {
 //        super.onBackPressed()
         if (backButtonCount < 1) {

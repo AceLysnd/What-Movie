@@ -10,8 +10,18 @@ plugins {
     id 'com.google.firebase.crashlytics'
 }
 
+apply plugin: 'com.github.triplet.play'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file("keystore_file.jks")
+            storePassword "password_keystore"
+            keyAlias "name-key-alias"
+            keyPassword "password-key-alias"
+        }
+    }
+
     compileSdk 32
 
     defaultConfig {
@@ -29,6 +39,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -41,6 +52,10 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+    }
+
+    lintOptions {
+        baseline file("lint-baseline.xml")
     }
 
     def keyPropertiesFile = rootProject.file("key.properties")
@@ -66,6 +81,13 @@ android {
             buildConfigField("String", "API_KEY", "\"${keyProperties.getProperty("API_KEY")}\"")
             manifestPlaceholders = [appLabel: "WhatMovie Pro"]
         }
+    }
+
+    play {
+        track = 'alpha'
+        serviceAccountEmail = 'ilhamakbar@api-what-movie-8b3e4.iam.gserviceaccount.com'
+
+        jsonFile = file('/PlayJson/play-store-key.json')
     }
 }
 
