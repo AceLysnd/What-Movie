@@ -1,4 +1,231 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <issues format="6" by="lint 7.2.1" type="baseline" client="gradle" dependencies="false" name="AGP (7.2.1)" variant="all" version="7.2.1">
 
+    <issue
+        id="ScopedStorage"
+        message="WRITE_EXTERNAL_STORAGE no longer provides write access when targeting Android 10+"
+        errorLine1="    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/>"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="7"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="ScopedStorage"
+        message="WRITE_EXTERNAL_STORAGE no longer provides write access when targeting Android 10+"
+        errorLine1="    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/>"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/pro/AndroidManifest.xml"
+            line="7"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `iconTint` is only used in API level 26 and higher (current min is 21)"
+        errorLine1="        android:iconTint=&quot;@color/white&quot;/>"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/menu/menu_profile.xml"
+            line="11"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged()"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/ace/whatmovie/ui/adapter/MoviesAdapter.kt"
+            line="32"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged()"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/ace/whatmovie/ui/adapter/MoviesAdapter.kt"
+            line="38"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged()"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/ace/whatmovie/ui/adapter/MoviesAdapterLarge.kt"
+            line="32"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 21"
+        errorLine1="        &lt;item name=&quot;android:statusBarColor&quot; tools:targetApi=&quot;l&quot;>?attr/colorPrimaryVariant&lt;/item>"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values-night/themes.xml"
+            line="13"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="Unnecessary; SDK_INT is always >= 21"
+        errorLine1="        &lt;item name=&quot;android:statusBarColor&quot; tools:targetApi=&quot;l&quot;>?attr/colorPrimaryVariant&lt;/item>"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/themes.xml"
+            line="13"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.purple_200` appears to be unused"
+        errorLine1="    &lt;color name=&quot;purple_200&quot;>#FFBB86FC&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="3"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.purple_500` appears to be unused"
+        errorLine1="    &lt;color name=&quot;purple_500&quot;>#FF6200EE&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="4"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_launcher_background` appears to be unused"
+        errorLine1="&lt;vector"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_launcher_background.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.mipmap.ic_launcher_foreground` appears to be unused">
+        <location
+            file="src/pro/res/mipmap-hdpi/ic_launcher_foreground.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.hello_blank_fragment` appears to be unused"
+        errorLine1="    &lt;string name=&quot;hello_blank_fragment&quot;>Hello blank fragment&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="4"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.hi` appears to be unused"
+        errorLine1="    &lt;string name=&quot;hi&quot;>Hi,&lt;/string>"
+        errorLine2="            ~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="29"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.error_getting_data` appears to be unused"
+        errorLine1="    &lt;string name=&quot;error_getting_data&quot;>Error while getting data&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="35"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_movie_detail.xml"
+            line="12"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="            &lt;ImageView"
+        errorLine2="             ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_movie_detail.xml"
+            line="30"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_profile.xml"
+            line="12"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/fragment_profile.xml"
+            line="12"
+            column="10"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_movie.xml"
+            line="8"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="        &lt;ImageView"
+        errorLine2="         ~~~~~~~~~">
+        <location
+            file="src/main/res/layout/item_movie_large.xml"
+            line="12"
+            column="10"/>
+    </issue>
+
 </issues>
