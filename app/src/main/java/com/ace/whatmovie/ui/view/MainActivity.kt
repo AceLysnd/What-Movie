@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
 
+    // Suppress info property could be private
+    @SuppressLint("all")
     lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +36,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private var backButtonCount = 0
-    @SuppressLint("all")
     override fun onBackPressed() {
 //        super.onBackPressed()
         if (backButtonCount < 1) {

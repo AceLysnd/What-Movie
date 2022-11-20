@@ -16,9 +16,9 @@ android {
     signingConfigs {
         release {
             storeFile file("keystore_file.jks")
-            storePassword "password_keystore"
-            keyAlias "name-key-alias"
-            keyPassword "password-key-alias"
+            storePassword "IlhamAkbar"
+            keyAlias "key0"
+            keyPassword "IlhamAkbar"
         }
     }
 
@@ -43,8 +43,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = '11'
@@ -54,7 +54,14 @@ android {
         dataBinding = true
     }
 
+    lint {
+        baseline = file("lint-baseline.xml")
+        // Ignore warning
+        ignoreWarnings true
+    }
+
     lintOptions {
+//        checkOnly 'NewApi', 'HandlerLeak'
         baseline file("lint-baseline.xml")
     }
 
@@ -74,12 +81,14 @@ android {
             buildConfigField("String", "BASE_URL", "\"${keyProperties.getProperty("BASE_URL")}\"")
             buildConfigField("String", "API_KEY", "\"${keyProperties.getProperty("API_KEY")}\"")
             manifestPlaceholders = [appLabel: "WhatMovie Free"]
+            signingConfig signingConfigs.release
         }
         pro {
             dimension = 'version'
             buildConfigField("String", "BASE_URL", "\"${keyProperties.getProperty("BASE_URL")}\"")
             buildConfigField("String", "API_KEY", "\"${keyProperties.getProperty("API_KEY")}\"")
             manifestPlaceholders = [appLabel: "WhatMovie Pro"]
+            signingConfig signingConfigs.release
         }
     }
 
