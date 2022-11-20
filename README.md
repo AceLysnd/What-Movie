@@ -1,5 +1,14 @@
 # What-Movie
 
+Challenge Binar Academy Chapter 8
+
+Kriteria :
+1. Generate aplikasi yang sudah siap dipublish
+2. Menerapkan Lint : Ignore hardcoded text di fragment_home.xml, missing translation, supress lint main activity, ignore warning di gradle
+3. Implementasi CI/CD menggunakan CircleCI
+
+-------------------------------------------------------------------------------------
+
 Note:
 1. Di change profile picture langsung dilakukan operasi workmanager.
 2. Hasil workmanager disimpan di galeri, ada 2 file, sebelum blur dan sesudah blur.
